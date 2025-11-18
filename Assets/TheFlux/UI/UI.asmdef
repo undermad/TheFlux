@@ -1,0 +1,7 @@
+{
+	"name": "UI",
+	"references": [
+		"Core"
+	],
+	"autoReferenced": true
+}

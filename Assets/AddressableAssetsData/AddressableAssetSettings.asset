@@ -1,0 +1,503 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 468a46d0ae32c3544b7d98094e6448a9, type: 3}
+  m_Name: AddressableAssetSettings
+  m_EditorClassIdentifier: 
+  <DenyEntryCollectionPermission>k__BackingField: 0
+  m_CachedAssetPath: Assets/AddressableAssetsData/AddressableAssetSettings.asset
+  m_CachedConfigFolder: Assets\AddressableAssetsData
+  m_DefaultGroup: afba12ad7a1ce734e8ae29d3399a6cb6
+  m_currentHash:
+    'bytes[0]': 0
+    'bytes[1]': 81
+    'bytes[2]': 143
+    'bytes[3]': 242
+    'bytes[4]': 196
+    'bytes[5]': 31
+    'bytes[6]': 112
+    'bytes[7]': 1
+    'bytes[8]': 161
+    'bytes[9]': 53
+    'bytes[10]': 128
+    'bytes[11]': 76
+    'bytes[12]': 100
+    'bytes[13]': 215
+    'bytes[14]': 115
+    'bytes[15]': 247
+  m_selfHash:
+    'bytes[0]': 235
+    'bytes[1]': 201
+    'bytes[2]': 71
+    'bytes[3]': 211
+    'bytes[4]': 187
+    'bytes[5]': 31
+    'bytes[6]': 114
+    'bytes[7]': 50
+    'bytes[8]': 62
+    'bytes[9]': 187
+    'bytes[10]': 3
+    'bytes[11]': 88
+    'bytes[12]': 121
+    'bytes[13]': 33
+    'bytes[14]': 120
+    'bytes[15]': 19
+  m_IsTemporary: 0
+  m_OptimizeCatalogSize: 0
+  m_BuildRemoteCatalog: 0
+  m_CatalogRequestsTimeout: 0
+  m_DisableCatalogUpdateOnStart: 0
+  m_InternalIdNamingMode: 0
+  m_InternalBundleIdMode: 1
+  m_AssetLoadMode: 0
+  m_BundledAssetProviderType:
+    m_AssemblyName: Unity.ResourceManager, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_ClassName: UnityEngine.ResourceManagement.ResourceProviders.BundledAssetProvider
+    <ValueChanged>k__BackingField: 0
+  m_AssetBundleProviderType:
+    m_AssemblyName: Unity.ResourceManager, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_ClassName: UnityEngine.ResourceManagement.ResourceProviders.AssetBundleProvider
+    <ValueChanged>k__BackingField: 0
+  m_IgnoreUnsupportedFilesInBuild: 0
+  m_UniqueBundleIds: 0
+  m_EnableJsonCatalog: 0
+  m_NonRecursiveBuilding: 1
+  m_AllowNestedBundleFolders: 0
+  m_CCDEnabled: 0
+  m_maxConcurrentWebRequests: 3
+  m_UseUWRForLocalBundles: 0
+  m_BundleTimeout: 0
+  m_BundleRetryCount: 0
+  m_BundleRedirectLimit: -1
+  m_SharedBundleSettings: 0
+  m_SharedBundleSettingsCustomGroupIndex: 0
+  m_ContiguousBundles: 1
+  m_StripUnityVersionFromBundleBuild: 0
+  m_DisableVisibleSubAssetRepresentations: 0
+  m_BuiltInBundleNaming: 0
+  mBuiltInBundleCustomNaming: 
+  m_MonoScriptBundleNaming: 0
+  m_CheckForContentUpdateRestrictionsOption: 0
+  m_MonoScriptBundleCustomNaming: 
+  m_RemoteCatalogBuildPath:
+    m_Id: bdc54477b8301254d954fd2b10d92ee9
+  m_RemoteCatalogLoadPath:
+    m_Id: aa0173c3768e4484d8cac5e18b85b12c
+  m_ContentStateBuildPathProfileVariableName: <default settings path>
+  m_CustomContentStateBuildPath: 
+  m_ContentStateBuildPath: 
+  m_BuildAddressablesWithPlayerBuild: 0
+  m_GroupsHash:
+    'bytes[0]': 2
+    'bytes[1]': 102
+    'bytes[2]': 16
+    'bytes[3]': 54
+    'bytes[4]': 143
+    'bytes[5]': 104
+    'bytes[6]': 136
+    'bytes[7]': 122
+    'bytes[8]': 10
+    'bytes[9]': 253
+    'bytes[10]': 5
+    'bytes[11]': 151
+    'bytes[12]': 135
+    'bytes[13]': 65
+    'bytes[14]': 21
+    'bytes[15]': 167
+  m_overridePlayerVersion: '[UnityEditor.PlayerSettings.bundleVersion]'
+  m_GroupAssets:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 369c19e1cb17cce488d59021f105f74d, type: 2}
+  - {fileID: 11400000, guid: e00adf21e2ca6d649a306b9e609b89ca, type: 2}
+  - {fileID: 11400000, guid: 809ae7489f15854488c98dc35e50fe04, type: 2}
+  m_BuildSettings:
+    m_LogResourceManagerExceptions: 1
+    m_BundleBuildPath: Temp/com.unity.addressables/AssetBundles
+    m_CurrentHash:
+      'bytes[0]': 35
+      'bytes[1]': 89
+      'bytes[2]': 88
+      'bytes[3]': 147
+      'bytes[4]': 105
+      'bytes[5]': 227
+      'bytes[6]': 1
+      'bytes[7]': 101
+      'bytes[8]': 74
+      'bytes[9]': 232
+      'bytes[10]': 19
+      'bytes[11]': 34
+      'bytes[12]': 154
+      'bytes[13]': 214
+      'bytes[14]': 211
+      'bytes[15]': 60
+  m_ProfileSettings:
+    m_Profiles:
+    - m_InheritedParent: 
+      m_Id: db43646a831743c4ba370a99f3ac2e37
+      m_ProfileName: Default
+      m_Values:
+      - m_Id: 054ee6176f97ae04d887f6dbc548ed3b
+        m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
+        m_CurrentHash:
+          'bytes[0]': 172
+          'bytes[1]': 17
+          'bytes[2]': 51
+          'bytes[3]': 162
+          'bytes[4]': 52
+          'bytes[5]': 98
+          'bytes[6]': 201
+          'bytes[7]': 148
+          'bytes[8]': 179
+          'bytes[9]': 252
+          'bytes[10]': 188
+          'bytes[11]': 138
+          'bytes[12]': 130
+          'bytes[13]': 39
+          'bytes[14]': 158
+          'bytes[15]': 16
+      - m_Id: 4fc3266688791f1478d25a9063408826
+        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
+        m_CurrentHash:
+          'bytes[0]': 35
+          'bytes[1]': 42
+          'bytes[2]': 84
+          'bytes[3]': 92
+          'bytes[4]': 203
+          'bytes[5]': 104
+          'bytes[6]': 72
+          'bytes[7]': 13
+          'bytes[8]': 43
+          'bytes[9]': 130
+          'bytes[10]': 254
+          'bytes[11]': 132
+          'bytes[12]': 240
+          'bytes[13]': 153
+          'bytes[14]': 162
+          'bytes[15]': 6
+      - m_Id: 969e92bf4176f2a4398f25aab9a30e21
+        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
+        m_CurrentHash:
+          'bytes[0]': 175
+          'bytes[1]': 192
+          'bytes[2]': 10
+          'bytes[3]': 115
+          'bytes[4]': 228
+          'bytes[5]': 58
+          'bytes[6]': 133
+          'bytes[7]': 250
+          'bytes[8]': 119
+          'bytes[9]': 187
+          'bytes[10]': 176
+          'bytes[11]': 93
+          'bytes[12]': 184
+          'bytes[13]': 228
+          'bytes[14]': 175
+          'bytes[15]': 25
+      - m_Id: aa0173c3768e4484d8cac5e18b85b12c
+        m_Value: <undefined>
+        m_CurrentHash:
+          'bytes[0]': 114
+          'bytes[1]': 239
+          'bytes[2]': 177
+          'bytes[3]': 229
+          'bytes[4]': 5
+          'bytes[5]': 136
+          'bytes[6]': 73
+          'bytes[7]': 72
+          'bytes[8]': 111
+          'bytes[9]': 194
+          'bytes[10]': 189
+          'bytes[11]': 111
+          'bytes[12]': 220
+          'bytes[13]': 176
+          'bytes[14]': 142
+          'bytes[15]': 236
+      - m_Id: bdc54477b8301254d954fd2b10d92ee9
+        m_Value: 'ServerData/[BuildTarget]'
+        m_CurrentHash:
+          'bytes[0]': 173
+          'bytes[1]': 0
+          'bytes[2]': 53
+          'bytes[3]': 85
+          'bytes[4]': 95
+          'bytes[5]': 158
+          'bytes[6]': 34
+          'bytes[7]': 106
+          'bytes[8]': 248
+          'bytes[9]': 108
+          'bytes[10]': 146
+          'bytes[11]': 61
+          'bytes[12]': 35
+          'bytes[13]': 182
+          'bytes[14]': 101
+          'bytes[15]': 155
+      m_CurrentHash:
+        'bytes[0]': 202
+        'bytes[1]': 12
+        'bytes[2]': 96
+        'bytes[3]': 18
+        'bytes[4]': 134
+        'bytes[5]': 146
+        'bytes[6]': 206
+        'bytes[7]': 92
+        'bytes[8]': 167
+        'bytes[9]': 48
+        'bytes[10]': 102
+        'bytes[11]': 38
+        'bytes[12]': 195
+        'bytes[13]': 60
+        'bytes[14]': 62
+        'bytes[15]': 218
+    m_ProfileEntryNames:
+    - m_Id: 054ee6176f97ae04d887f6dbc548ed3b
+      m_Name: BuildTarget
+      m_CurrentHash:
+        'bytes[0]': 83
+        'bytes[1]': 172
+        'bytes[2]': 31
+        'bytes[3]': 128
+        'bytes[4]': 99
+        'bytes[5]': 167
+        'bytes[6]': 171
+        'bytes[7]': 249
+        'bytes[8]': 39
+        'bytes[9]': 143
+        'bytes[10]': 146
+        'bytes[11]': 125
+        'bytes[12]': 181
+        'bytes[13]': 210
+        'bytes[14]': 249
+        'bytes[15]': 199
+      m_InlineUsage: 0
+    - m_Id: 4fc3266688791f1478d25a9063408826
+      m_Name: Local.BuildPath
+      m_CurrentHash:
+        'bytes[0]': 99
+        'bytes[1]': 125
+        'bytes[2]': 192
+        'bytes[3]': 76
+        'bytes[4]': 159
+        'bytes[5]': 169
+        'bytes[6]': 84
+        'bytes[7]': 86
+        'bytes[8]': 81
+        'bytes[9]': 224
+        'bytes[10]': 214
+        'bytes[11]': 121
+        'bytes[12]': 127
+        'bytes[13]': 42
+        'bytes[14]': 239
+        'bytes[15]': 219
+      m_InlineUsage: 0
+    - m_Id: 969e92bf4176f2a4398f25aab9a30e21
+      m_Name: Local.LoadPath
+      m_CurrentHash:
+        'bytes[0]': 94
+        'bytes[1]': 54
+        'bytes[2]': 112
+        'bytes[3]': 253
+        'bytes[4]': 79
+        'bytes[5]': 105
+        'bytes[6]': 92
+        'bytes[7]': 144
+        'bytes[8]': 140
+        'bytes[9]': 36
+        'bytes[10]': 167
+        'bytes[11]': 189
+        'bytes[12]': 37
+        'bytes[13]': 6
+        'bytes[14]': 232
+        'bytes[15]': 209
+      m_InlineUsage: 0
+    - m_Id: aa0173c3768e4484d8cac5e18b85b12c
+      m_Name: Remote.LoadPath
+      m_CurrentHash:
+        'bytes[0]': 253
+        'bytes[1]': 40
+        'bytes[2]': 18
+        'bytes[3]': 189
+        'bytes[4]': 70
+        'bytes[5]': 187
+        'bytes[6]': 130
+        'bytes[7]': 230
+        'bytes[8]': 219
+        'bytes[9]': 139
+        'bytes[10]': 225
+        'bytes[11]': 206
+        'bytes[12]': 251
+        'bytes[13]': 31
+        'bytes[14]': 132
+        'bytes[15]': 198
+      m_InlineUsage: 0
+    - m_Id: bdc54477b8301254d954fd2b10d92ee9
+      m_Name: Remote.BuildPath
+      m_CurrentHash:
+        'bytes[0]': 169
+        'bytes[1]': 117
+        'bytes[2]': 67
+        'bytes[3]': 242
+        'bytes[4]': 129
+        'bytes[5]': 110
+        'bytes[6]': 234
+        'bytes[7]': 84
+        'bytes[8]': 181
+        'bytes[9]': 192
+        'bytes[10]': 122
+        'bytes[11]': 78
+        'bytes[12]': 207
+        'bytes[13]': 107
+        'bytes[14]': 96
+        'bytes[15]': 95
+      m_InlineUsage: 0
+    m_ProfileVersion: 1
+    m_CurrentHash:
+      'bytes[0]': 134
+      'bytes[1]': 205
+      'bytes[2]': 224
+      'bytes[3]': 107
+      'bytes[4]': 187
+      'bytes[5]': 172
+      'bytes[6]': 180
+      'bytes[7]': 120
+      'bytes[8]': 4
+      'bytes[9]': 252
+      'bytes[10]': 50
+      'bytes[11]': 191
+      'bytes[12]': 95
+      'bytes[13]': 57
+      'bytes[14]': 32
+      'bytes[15]': 169
+  m_LabelTable:
+    m_LabelNames:
+    - default
+    m_LabelStyle:
+      m_Name: label
+      m_Normal: {m_Background: {fileID: 0}, m_ScaledBackgrounds: []
+, m_TextColor:
+          r: 0.8235294
+          g: 0.8235294
+          b: 0.8235294
+          a: 1
+}
+      m_Hover: {m_Background: {fileID: 0}, m_ScaledBackgrounds: []
+, m_TextColor:
+          r: 0.8235294
+          g: 0.8235294
+          b: 0.8235294
+          a: 1
+}
+      m_Active: {m_Background: {fileID: 0}, m_ScaledBackgrounds: []
+, m_TextColor:
+          r: 0.8235294
+          g: 0.8235294
+          b: 0.8235294
+          a: 1
+}
+      m_Focused: {m_Background: {fileID: 0}, m_ScaledBackgrounds: []
+, m_TextColor:
+          r: 0.8235294
+          g: 0.8235294
+          b: 0.8235294
+          a: 1
+}
+      m_OnNormal: {m_Background: {fileID: 0}, m_ScaledBackgrounds: []
+, m_TextColor:
+          r: 0.8235294
+          g: 0.8235294
+          b: 0.8235294
+          a: 1
+}
+      m_OnHover: {m_Background: {fileID: 0}, m_ScaledBackgrounds: []
+, m_TextColor:
+          r: 0.8235294
+          g: 0.8235294
+          b: 0.8235294
+          a: 1
+}
+      m_OnActive: {m_Background: {fileID: 0}, m_ScaledBackgrounds: []
+, m_TextColor:
+          r: 0.8235294
+          g: 0.8235294
+          b: 0.8235294
+          a: 1
+}
+      m_OnFocused: {m_Background: {fileID: 0}, m_ScaledBackgrounds: []
+, m_TextColor:
+          r: 1
+          g: 1
+          b: 1
+          a: 1
+}
+      m_Border:
+        m_Left: 0
+        m_Right: 0
+        m_Top: 0
+        m_Bottom: 0
+      m_Margin:
+        m_Left: 4
+        m_Right: 4
+        m_Top: 2
+        m_Bottom: 2
+      m_Padding:
+        m_Left: 2
+        m_Right: 2
+        m_Top: 1
+        m_Bottom: 1
+      m_Overflow:
+        m_Left: 0
+        m_Right: 0
+        m_Top: 0
+        m_Bottom: 0
+      m_Font: {fileID: 0}
+      m_FontSize: 12
+      m_FontStyle: 0
+      m_Alignment: 3
+      m_WordWrap: 1
+      m_RichText: 0
+      m_TextClipping: 1
+      m_ImagePosition: 0
+      m_ContentOffset: {x: 0, y: 0}
+      m_FixedWidth: 0
+      m_FixedHeight: 0
+      m_StretchWidth: 1
+      m_StretchHeight: 0
+    m_CurrentHash:
+      'bytes[0]': 172
+      'bytes[1]': 132
+      'bytes[2]': 207
+      'bytes[3]': 242
+      'bytes[4]': 213
+      'bytes[5]': 15
+      'bytes[6]': 128
+      'bytes[7]': 181
+      'bytes[8]': 62
+      'bytes[9]': 172
+      'bytes[10]': 245
+      'bytes[11]': 208
+      'bytes[12]': 213
+      'bytes[13]': 94
+      'bytes[14]': 210
+      'bytes[15]': 111
+  m_SchemaTemplates: []
+  m_GroupTemplateObjects:
+  - {fileID: 11400000, guid: 70ad6fdce4a9038469fd0a14eff5d93b, type: 2}
+  m_InitializationObjects: []
+  m_CertificateHandlerType:
+    m_AssemblyName: 
+    m_ClassName: 
+    <ValueChanged>k__BackingField: 0
+  m_ActivePlayerDataBuilderIndex: 2
+  m_DataBuilders:
+  - {fileID: 11400000, guid: 1d31abd971b28e54a98327c5a9cc4c23, type: 2}
+  - {fileID: 11400000, guid: 771562d4b1b957d438a9f30e81eb8329, type: 2}
+  - {fileID: 11400000, guid: 6c3ebda3577e73e4db0819a80124f445, type: 2}
+  m_ActiveProfileId: db43646a831743c4ba370a99f3ac2e37
+  m_DefaultGroupTemplateName: Packed Assets
