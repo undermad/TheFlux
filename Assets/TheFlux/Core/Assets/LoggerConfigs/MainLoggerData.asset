@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e2d90819030bb94789e9c33dd8a50d6, type: 3}
+  m_Name: MainLoggerData
+  m_EditorClassIdentifier: 
+  groupByPrefix: 0
+  colorMode: 1
+  globalLevel: 0
+  categories:
+  - logCategory: 0
+    active: 1
+    color: {r: 0.2980392, g: 0.7376591, b: 1, a: 1}
+  - logCategory: 1
+    active: 1
+    color: {r: 0.53214043, g: 1, b: 0.51886785, a: 1}

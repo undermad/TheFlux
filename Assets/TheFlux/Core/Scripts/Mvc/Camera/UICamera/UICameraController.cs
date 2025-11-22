@@ -4,12 +4,12 @@ namespace TheFlux.Core.Scripts.Mvc.Camera.UICamera
 {
     public class UICameraController
     {
-        private UICameraView _uiCameraView;
+        private readonly UICameraView uiCameraView;
 
         [Inject]
         public UICameraController(UICameraView uiCameraView)
         {
-            _uiCameraView = uiCameraView;
+            this.uiCameraView = uiCameraView;
         }
     }
 }

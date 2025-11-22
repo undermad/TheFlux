@@ -1,53 +1,55 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
+
 using Cysharp.Threading.Tasks;
+
 using TheFlux.Core.Scripts.Services.LogService;
-using UnityEngine;
+
 using UnityEngine.SceneManagement;
+
+using VContainer;
 
 namespace TheFlux.Core.Scripts.Services.SceneService
 {
     public class SceneService : ISceneService
     {
-        private ILogService _logger;
+        private readonly LoggerService _logger;
 
-        public SceneService(LogService.LogService logger)
+        [Inject]
+        public SceneService(LoggerService logger)
         {
             _logger = logger;
-            _logger.Log("SceneLoader constructed");
         }
 
-        public async UniTask LoadScenes(SceneGroup group, IProgress<float> progress, bool reloadDupScenes = false)
+        public async UniTask LoadScenes(SceneGroup group, IProgress<float> progress, CancellationTokenSource cancellationTokenSource, bool reloadDupScenes = false)
         {
-            await UnloadScenes();
-            
+            await UnloadScenes(cancellationTokenSource);
+
             var loadedSceneNames = new List<string>();
             for (var i = 0; i < SceneManager.sceneCount; i++)
             {
                 loadedSceneNames.Add(SceneManager.GetSceneAt(i).name);
             }
 
-            var totalSceneToLoad = group.Scenes.Count;
+            var totalSceneToLoad = group.scenes.Count;
             var operationGroup = new AsyncOperationGroup(totalSceneToLoad);
             for (var i = 0; i < totalSceneToLoad; i++)
             {
-                var sceneData = group.Scenes[i];
+                var sceneData = group.scenes[i];
                 if (!reloadDupScenes && loadedSceneNames.Contains(sceneData.Name))
                 {
                     continue;
                 }
-                
-                Debug.Log($"Loading scene {sceneData.Name}");
-
-                await Task.Delay(TimeSpan.FromSeconds(2.5d));
-
+                _logger.Log($"Loading scene asynchronously {sceneData.Name}");
                 var operation = SceneManager.LoadSceneAsync(sceneData.reference.Path, LoadSceneMode.Additive);
                 operationGroup.AsyncOperations.Add(operation);
             }
 
             while (!operationGroup.IsDone)
             {
+                cancellationTokenSource.Token.ThrowIfCancellationRequested();
                 progress.Report(operationGroup.Progress);
                 await UniTask.Delay(100);
             }
@@ -60,7 +62,7 @@ namespace TheFlux.Core.Scripts.Services.SceneService
             }
         }
 
-        public async UniTask UnloadScenes()
+        public async UniTask UnloadScenes(CancellationTokenSource cancellationTokenSource)
         {
             var scenesToUnload = new List<string>();
             for (var i = 1; i < SceneManager.sceneCount; i++)
@@ -73,7 +75,7 @@ namespace TheFlux.Core.Scripts.Services.SceneService
                 }
                 scenesToUnload.Add(loadedSceneName);
             }
-            
+
             var operationGroup = new AsyncOperationGroup(scenesToUnload.Count);
             foreach (var scene in scenesToUnload)
             {
@@ -84,9 +86,10 @@ namespace TheFlux.Core.Scripts.Services.SceneService
                 }
                 operationGroup.AsyncOperations.Add(operation);
             }
-            
+
             while (!operationGroup.IsDone)
             {
+                cancellationTokenSource.Token.ThrowIfCancellationRequested();
                 await UniTask.Delay(100);
             }
         }

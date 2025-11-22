@@ -1,3 +1,15 @@
 fileFormatVersion: 2
 guid: 05f250694a7849469aba648c0bf7d66d
-timeCreated: 1763249315
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - gameInitiator: {fileID: 9055628991384824634, guid: bfda3b503db36374ab32c848ba02d54e, type: 3}
+  - loadingScreen: {fileID: 8583841686983314041, guid: a3487fff63c8957408982bb150129401, type: 3}
+  - uiCamera: {fileID: 4265390968564231641, guid: d4141d5d94792154fbd32f21747ade39, type: 3}
+  - loggerConfig: {fileID: 11400000, guid: 20405c813725a444fb37b4288120a398, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

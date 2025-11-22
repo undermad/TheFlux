@@ -1,32 +1,32 @@
-using System;
+using System.Threading;
 using Cysharp.Threading.Tasks;
+
 using TheFlux.Core.Scripts.Mvc.Camera.UICamera;
 using TheFlux.Core.Scripts.Mvc.LoadingScreen;
 using TheFlux.Core.Scripts.Services.LogService;
 using TheFlux.Core.Scripts.Services.SceneService;
+
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+
 using VContainer;
-using VContainer.Unity;
 
 namespace TheFlux.Core.Scripts
 {
     public class GameInitiator : MonoBehaviour
     {
         [SerializeField] private SceneGroup[] sceneGroups;
-        
-        private LogService _logService;
+
+        private LoggerService _logService;
         private SceneService _sceneService;
         private LoadingScreenController _loadingScreenController;
-        
+
         private UICameraController _uiCameraController;
 
 
         [Inject]
         public void Construct(
-            LogService logService,
-            SceneService sceneService, 
+            LoggerService logService,
+            SceneService sceneService,
             LoadingScreenController loadingScreenController,
             UICameraController uiCameraController
             )
@@ -39,29 +39,32 @@ namespace TheFlux.Core.Scripts
 
         public void Start()
         {
-            UniTask.Void(InitEntryPoint);
+            _ = InitEntryPoint(CancellationTokenSource.CreateLinkedTokenSource(Application.exitCancellationToken));
         }
 
-        private async UniTaskVoid InitEntryPoint()
+        private async UniTaskVoid InitEntryPoint(CancellationTokenSource cancellationToken)
         {
             _loadingScreenController.Show();
-            _loadingScreenController.SetLoadingSlider(0.5f);
-            await LoadSceneGroup();
-            _loadingScreenController.SetLoadingSlider(1);
-            _loadingScreenController.Hide();
+            await LoadSceneGroup(cancellationToken);
         }
-
-        private void NotifyProgress(float progress)
-        {
-            _loadingScreenController.SetLoadingSlider(progress);
-        }
-
-        private async UniTask LoadSceneGroup()
+        
+        private async UniTask LoadSceneGroup(CancellationTokenSource cancellationTokenSource)
         {
             var progress = new LoadingProgress();
-            progress.Progressed += NotifyProgress;
-            await _sceneService.LoadScenes(sceneGroups[0], progress);
+            progress.Progressed += progressValue => NotifyProgress(progressValue, cancellationTokenSource).Forget();
+            await _sceneService.LoadScenes(sceneGroups[0], progress, cancellationTokenSource);
             _logService.Log("Scenes loaded");
         }
+        
+        private async UniTask NotifyProgress(float progress, CancellationTokenSource cancellationTokenSource)
+        {
+            _logService.Log($"Progress: {progress}", LogLevel.Info, LogCategory.UI);
+            await _loadingScreenController.SetLoadingSlider(progress, cancellationTokenSource);
+            if (progress >= 1f)
+            {
+                _loadingScreenController.ActivateContinueButton();
+            }
+        }
+
     }
 }

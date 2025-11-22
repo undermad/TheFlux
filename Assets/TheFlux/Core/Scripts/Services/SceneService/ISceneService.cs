@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 
 namespace TheFlux.Core.Scripts.Services.SceneService
 {
     public interface ISceneService
     {
-        UniTask LoadScenes(SceneGroup group, IProgress<float> progress, bool reloadDupScenes);
+        UniTask LoadScenes(SceneGroup group, IProgress<float> progress, CancellationTokenSource cancellationTokenSource, bool reloadDupScenes);
     }
 }

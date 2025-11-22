@@ -1,0 +1,11 @@
+OVDF v1.0
+TheFlux.Core.Scripts.VContainer.RootLifetimeScope, Core
+
+# gameInitiator
+Position: $H8cCMKWHFYDMUysDA9rm3c:0
+
+# loadingScreen
+Position: $H8cCMKWHFYDMUysDA9rm3c:2
+
+# uiCamera
+Position: $H8cCMKWHFYDMUysDA9rm3c:1

@@ -1,6 +1,5 @@
 ﻿using System;
 using Eflatun.SceneReference;
-using UnityEngine.Serialization;
 
 namespace TheFlux.Core.Scripts.Services.SceneService
 {

@@ -1,37 +1,45 @@
-﻿using TheFlux.Core.Scripts.Services.LogService;
+﻿using System.Threading;
+using Cysharp.Threading.Tasks;
+using TheFlux.Core.Scripts.Services.LogService;
 using VContainer;
 
 namespace TheFlux.Core.Scripts.Mvc.LoadingScreen
 {
     public class LoadingScreenController
     {
-        private LogService _logService;
-        private LoadingScreenView _loadingScreenView;
+        private readonly LoggerService logger;
+        private readonly LoadingScreenView loadingScreenView;
 
         [Inject]
-        public LoadingScreenController(LogService logService, LoadingScreenView loadingScreenView)
+        public LoadingScreenController(LoggerService logger, LoadingScreenView loadingScreenView)
         {
-            _logService = logService;
-            _loadingScreenView = loadingScreenView;
+            this.logger = logger;
+            this.loadingScreenView = loadingScreenView;
         }
 
         public void Show()
         {
-            _logService.Log("Showing loading screen");
-            _loadingScreenView.ResetSlider();
-            _loadingScreenView.Show();
+            logger.Log("Showing loading screen", LogLevel.Info, LogCategory.UI);
+            loadingScreenView.ResetLoadingScreen();
+            loadingScreenView.AddActionToContinueButton(Hide);
+            loadingScreenView.Show();
         }
 
-        public void Hide()
+        private void Hide()
         {
-            _logService.Log("Hiding loading screen");
-            _loadingScreenView.Hide();
+            logger.Log("Hiding loading screen", LogLevel.Info, LogCategory.UI);
+            loadingScreenView.Hide();
         }
 
-        public void SetLoadingSlider(float valueBetween0To1)
+        public async UniTask SetLoadingSlider(float valueBetween0To1, CancellationTokenSource cancellationTokenSource)
         {
-            _loadingScreenView.AnimateSliderTo(valueBetween0To1);
+            await loadingScreenView.AnimateSliderTo(valueBetween0To1, cancellationTokenSource);
         }
-        
+
+        public void ActivateContinueButton()
+        {
+            loadingScreenView.ActivateContinueButton();
+        }
+
     }
 }
