@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-
 using KBCore.Refs;
-
 using TheFlux.Core.Scripts.Services.Helpers;
-
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,7 +19,7 @@ namespace TheFlux.Core.Scripts.Mvc.LoadingScreen
         {
             continueButton.onClick.AddListener(onClickAction.Invoke);
         }
-        
+
         public void Show()
         {
             gameObject.SetActive(true);

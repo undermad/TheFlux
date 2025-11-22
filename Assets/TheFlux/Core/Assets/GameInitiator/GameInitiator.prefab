@@ -45,13 +45,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneGroups:
-  - GroupName: Gameplay
-    Scenes:
-    - reference:
-        asset: {fileID: 102900000, guid: c2f2a243e24ba3341af067ca9b674f7d, type: 3}
-        guid: c2f2a243e24ba3341af067ca9b674f7d
-      sceneType: 0
+  - groupName: New Scene Group
+    scenes:
     - reference:
         asset: {fileID: 102900000, guid: c3a9f96f36d32fb428c0c6b5eb6d6847, type: 3}
         guid: c3a9f96f36d32fb428c0c6b5eb6d6847
       sceneType: 2
+    - reference:
+        asset: {fileID: 102900000, guid: c2f2a243e24ba3341af067ca9b674f7d, type: 3}
+        guid: c2f2a243e24ba3341af067ca9b674f7d
+      sceneType: 0

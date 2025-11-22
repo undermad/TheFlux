@@ -1,43 +1,33 @@
 using System.Collections.Generic;
-
 using UnityEngine;
-
 using VContainer;
 
 namespace TheFlux.Core.Scripts.Services.LogService
 {
-    public enum LogLevel
-    {
-        Debug,
-        Info,
-        Warning,
-        Error,
-        Critical,
-        None
-    }
 
-    public class LoggerService
+    public class Logger
     {
-        public LogLevel GlobalLevel = LogLevel.Debug;
-        public LoggerColorMode ColorMode = LoggerColorMode.CategoryOnly;
+        private LogLevel globalLevel = LogLevel.Debug;
+        private LoggerColorMode colorMode = LoggerColorMode.CategoryOnly;
         private readonly Dictionary<LogCategory, (bool active, Color color)> loggerCategories = new();
 
-        private readonly LoggerConfig _loggerConfig;
+        private readonly LoggerConfig loggerConfig;
 
         [Inject]
-        public LoggerService(LoggerConfig loggerConfig)
+        public Logger(LoggerConfig loggerConfig)
         {
-            _loggerConfig = loggerConfig;
+            this.loggerConfig = loggerConfig;
             ApplyConfig();
-            Log("Logger config loaded.");
+            LogService.InjectLogger(this);
+            LogService.Log("Logger initialized");
         }
 
         private void ApplyConfig()
         {
-            GlobalLevel = _loggerConfig.globalLevel;
-            ColorMode = _loggerConfig.colorMode;
+            globalLevel = loggerConfig.globalLevel;
+            colorMode = loggerConfig.colorMode;
 
-            var categories = _loggerConfig.categories;
+            var categories = loggerConfig.categories;
 
             foreach (var entry in categories)
             {
@@ -48,11 +38,11 @@ namespace TheFlux.Core.Scripts.Services.LogService
 
         public void Log(string message, LogLevel level = LogLevel.Info, LogCategory category = LogCategory.General)
         {
-            if (level < GlobalLevel) return;
+            if (level < globalLevel) return;
             if (!loggerCategories.ContainsKey(category) || !loggerCategories[category].active) return;
             var categoryColor = loggerCategories[category].color;
             var categoryColorHex = ColorUtility.ToHtmlStringRGB(categoryColor);
-            var fullMessage = ColorMode switch
+            var fullMessage = colorMode switch
             {
                 LoggerColorMode.NoColor => $"[{level}] [{category}] {message}",
                 LoggerColorMode.CategoryOnly => $"[{level}] <color=#{categoryColorHex}>[{category}]</color> {message}",

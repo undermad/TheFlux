@@ -8,19 +8,6 @@ using UnityEngine.Serialization;
 
 namespace TheFlux.Core.Scripts.Services.LogService
 {
-    public enum LoggerColorMode
-    {
-        NoColor,
-        CategoryOnly,
-        FullMessage
-    }
-
-    public enum LogCategory
-    {
-        General,
-        UI,
-    }
-
     [Serializable]
     public class CategoryEntry
     {

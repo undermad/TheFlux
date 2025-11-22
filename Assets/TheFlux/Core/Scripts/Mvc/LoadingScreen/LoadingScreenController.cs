@@ -7,19 +7,17 @@ namespace TheFlux.Core.Scripts.Mvc.LoadingScreen
 {
     public class LoadingScreenController
     {
-        private readonly LoggerService logger;
         private readonly LoadingScreenView loadingScreenView;
 
         [Inject]
-        public LoadingScreenController(LoggerService logger, LoadingScreenView loadingScreenView)
+        public LoadingScreenController(LoadingScreenView loadingScreenView)
         {
-            this.logger = logger;
             this.loadingScreenView = loadingScreenView;
         }
 
         public void Show()
         {
-            logger.Log("Showing loading screen", LogLevel.Info, LogCategory.UI);
+            LogService.Log("Showing loading screen", LogLevel.Info, LogCategory.UI);
             loadingScreenView.ResetLoadingScreen();
             loadingScreenView.AddActionToContinueButton(Hide);
             loadingScreenView.Show();
@@ -27,7 +25,7 @@ namespace TheFlux.Core.Scripts.Mvc.LoadingScreen
 
         private void Hide()
         {
-            logger.Log("Hiding loading screen", LogLevel.Info, LogCategory.UI);
+            LogService.Log("Hiding loading screen", LogLevel.Info, LogCategory.UI);
             loadingScreenView.Hide();
         }
 

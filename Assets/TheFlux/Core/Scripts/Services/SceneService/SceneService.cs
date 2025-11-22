@@ -1,28 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
-using System.Threading.Tasks;
-
 using Cysharp.Threading.Tasks;
-
-using TheFlux.Core.Scripts.Services.LogService;
-
 using UnityEngine.SceneManagement;
-
-using VContainer;
 
 namespace TheFlux.Core.Scripts.Services.SceneService
 {
     public class SceneService : ISceneService
     {
-        private readonly LoggerService _logger;
-
-        [Inject]
-        public SceneService(LoggerService logger)
-        {
-            _logger = logger;
-        }
-
         public async UniTask LoadScenes(SceneGroup group, IProgress<float> progress, CancellationTokenSource cancellationTokenSource, bool reloadDupScenes = false)
         {
             await UnloadScenes(cancellationTokenSource);
@@ -42,7 +27,7 @@ namespace TheFlux.Core.Scripts.Services.SceneService
                 {
                     continue;
                 }
-                _logger.Log($"Loading scene asynchronously {sceneData.Name}");
+                LogService.LogService.Log($"Loading scene asynchronously {sceneData.Name}");
                 var operation = SceneManager.LoadSceneAsync(sceneData.reference.Path, LoadSceneMode.Additive);
                 operationGroup.AsyncOperations.Add(operation);
             }
@@ -62,7 +47,7 @@ namespace TheFlux.Core.Scripts.Services.SceneService
             }
         }
 
-        public async UniTask UnloadScenes(CancellationTokenSource cancellationTokenSource)
+        private async UniTask UnloadScenes(CancellationTokenSource cancellationTokenSource)
         {
             var scenesToUnload = new List<string>();
             for (var i = 1; i < SceneManager.sceneCount; i++)

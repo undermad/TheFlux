@@ -22,3 +22,9 @@ MonoBehaviour:
   - logCategory: 1
     active: 1
     color: {r: 0.53214043, g: 1, b: 0.51886785, a: 1}
+  - logCategory: 2
+    active: 1
+    color: {r: 1, g: 0.1415093, b: 0.1415093, a: 1}
+  - logCategory: 3
+    active: 1
+    color: {r: 0.9525306, g: 1, b: 0.19182372, a: 1}
