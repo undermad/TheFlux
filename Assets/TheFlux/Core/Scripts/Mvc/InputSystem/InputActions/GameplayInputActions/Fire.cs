@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace TheFlux.Core.Scripts.Mvc.InputSystem.InputActions
+namespace TheFlux.Core.Scripts.Mvc.InputSystem.InputActions.GameplayInputActions
 {
     [CreateAssetMenu(fileName = "Fire", menuName = "Input/Actions/Fire")]
     public class Fire : GameInputAction

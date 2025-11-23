@@ -3,6 +3,7 @@ using TheFlux.Core.Scripts.Mvc.Camera.UICamera;
 using TheFlux.Core.Scripts.Mvc.InputSystem;
 using TheFlux.Core.Scripts.Mvc.LoadingScreen;
 using TheFlux.Core.Scripts.Services.LogService;
+using TheFlux.Core.Scripts.Services.SceneInitiatorService;
 using TheFlux.Core.Scripts.Services.SceneService;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -27,6 +28,9 @@ namespace TheFlux.Core.Scripts.VContainer
             builder.RegisterInstance(loggerConfig);
             builder.Register<Logger>(Lifetime.Singleton).WithParameter(loggerConfig);
 
+
+            builder.Register<SceneInitiatorService>(Lifetime.Singleton);
+            
             builder.Register<SceneService>(Lifetime.Singleton);
             builder.Register<UICameraController>(Lifetime.Singleton)
                 .WithParameter(uiCamera);

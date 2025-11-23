@@ -1,23 +1,57 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using UnityEngine.SceneManagement;
+using VContainer;
 
 namespace TheFlux.Core.Scripts.Services.SceneService
 {
-    public class SceneService : ISceneService
+    public class SceneService
     {
-        public async UniTask LoadScenes(SceneGroup group, IProgress<float> progress, CancellationTokenSource cancellationTokenSource, bool reloadDupScenes = false)
+        private SceneInitiatorService.SceneInitiatorService initiatorService;
+
+        [Inject]
+        public SceneService(SceneInitiatorService.SceneInitiatorService initiatorService)
+        {
+            this.initiatorService = initiatorService;
+        }
+
+
+        public async UniTask LoadScenes(
+            SceneGroup group,
+            IProgress<float> progress,
+            CancellationTokenSource cancellationTokenSource,
+            bool reloadDupScenes = false)
         {
             await UnloadScenes(cancellationTokenSource);
+            var loadedScenes = await LoadSceneGroup(group, progress, cancellationTokenSource, reloadDupScenes);
+            await InitializeEntryPoint(loadedScenes, progress, cancellationTokenSource);
 
+            var activeScene = SceneManager.GetSceneByName(group.FindSceneNameByType(SceneType.ActiveScene));
+            if (activeScene.IsValid())
+            {
+                SceneManager.SetActiveScene(activeScene);
+            }
+
+            progress.Report(1);
+        }
+
+        private async UniTask<List<SceneData>> LoadSceneGroup(
+            SceneGroup group,
+            IProgress<float> progress,
+            CancellationTokenSource cancellationTokenSource,
+            bool reloadDupScenes)
+        {
             var loadedSceneNames = new List<string>();
             for (var i = 0; i < SceneManager.sceneCount; i++)
             {
                 loadedSceneNames.Add(SceneManager.GetSceneAt(i).name);
             }
 
+            var loadedScenes = new List<SceneData>();
             var totalSceneToLoad = group.scenes.Count;
             var operationGroup = new AsyncOperationGroup(totalSceneToLoad);
             for (var i = 0; i < totalSceneToLoad; i++)
@@ -27,24 +61,57 @@ namespace TheFlux.Core.Scripts.Services.SceneService
                 {
                     continue;
                 }
+
                 LogService.LogService.Log($"Loading scene asynchronously {sceneData.Name}");
                 var operation = SceneManager.LoadSceneAsync(sceneData.reference.Path, LoadSceneMode.Additive);
                 operationGroup.AsyncOperations.Add(operation);
+                loadedScenes.Add(sceneData);
             }
 
             while (!operationGroup.IsDone)
             {
                 cancellationTokenSource.Token.ThrowIfCancellationRequested();
-                progress.Report(operationGroup.Progress);
+                progress.Report(operationGroup.Progress * 0.2f);
                 await UniTask.Delay(100);
             }
-            progress.Report(operationGroup.Progress);
 
-            var activeScene = SceneManager.GetSceneByName(group.FindSceneNameByType(SceneType.ActiveScene));
-            if (activeScene.IsValid())
+            return loadedScenes;
+        }
+
+        private async UniTask InitializeEntryPoint(
+            List<SceneData> loadedScenes,
+            IProgress<float> progress,
+            CancellationTokenSource cancellationTokenSource)
+        {
+            var completed = 0;
+            var loadedScenesCount = loadedScenes.Count;
+            var semaphore = new SemaphoreSlim(1, 1);
+            for (var i = 0; i < loadedScenesCount; i++)
             {
-                SceneManager.SetActiveScene(activeScene);
+                var sceneData = loadedScenes[i];
+                _ = initiatorService
+                    // Add Entry Data class here!
+                    .InvokeInitiatorLoadEntryPoint(sceneData.sceneType, null, cancellationTokenSource)
+                    .ContinueWith(async () =>
+                    {
+                        await semaphore.WaitAsync();
+                        try
+                        {
+                            completed++;
+                            progress.Report((float)completed / loadedScenesCount * 0.8f + 0.2f);
+                        }
+                        finally
+                        {
+                            semaphore.Release();
+                        }
+                    });
             }
+
+            while (completed != loadedScenesCount)
+            {
+                await UniTask.Delay(100);
+            }
+            await UniTask.Delay(100);
         }
 
         private async UniTask UnloadScenes(CancellationTokenSource cancellationTokenSource)
@@ -58,17 +125,14 @@ namespace TheFlux.Core.Scripts.Services.SceneService
                 {
                     continue;
                 }
+
                 scenesToUnload.Add(loadedSceneName);
             }
 
             var operationGroup = new AsyncOperationGroup(scenesToUnload.Count);
-            foreach (var scene in scenesToUnload)
+            foreach (var operation in scenesToUnload.Select(SceneManager.UnloadSceneAsync)
+                         .Where(operation => operation != null))
             {
-                var operation = SceneManager.UnloadSceneAsync(scene);
-                if (operation == null)
-                {
-                    continue;
-                }
                 operationGroup.AsyncOperations.Add(operation);
             }
 

@@ -480,6 +480,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8424210307826739933, guid: a3487fff63c8957408982bb150129401, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8424210307826739933, guid: a3487fff63c8957408982bb150129401, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -2106255050650069618, guid: 772036e808812a049aa04efc2cdd089c, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -634,6 +642,10 @@ PrefabInstance:
     - target: {fileID: 1006500147069192137, guid: e6486652a471ac0428a9bdaded10d0e8, type: 3}
       propertyPath: m_Name
       value: InputManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 1006500147069192137, guid: e6486652a471ac0428a9bdaded10d0e8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6878504734279498117, guid: e6486652a471ac0428a9bdaded10d0e8, type: 3}
       propertyPath: m_LocalPosition.x

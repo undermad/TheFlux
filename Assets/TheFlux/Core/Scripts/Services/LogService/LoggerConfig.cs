@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-
 using UnityEditor;
 
 using UnityEngine;
@@ -22,7 +21,7 @@ namespace TheFlux.Core.Scripts.Services.LogService
         public bool groupByPrefix = false;
         public LoggerColorMode colorMode = LoggerColorMode.CategoryOnly;
         public LogLevel globalLevel = LogLevel.Debug;
-        public List<CategoryEntry> categories = new List<CategoryEntry>();
+        public List<CategoryEntry> categories = new();
 
         private void OnEnable()
         {
