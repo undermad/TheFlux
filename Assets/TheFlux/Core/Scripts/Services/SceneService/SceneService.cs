@@ -35,7 +35,6 @@ namespace TheFlux.Core.Scripts.Services.SceneService
             {
                 SceneManager.SetActiveScene(activeScene);
             }
-
             progress.Report(1);
         }
 
