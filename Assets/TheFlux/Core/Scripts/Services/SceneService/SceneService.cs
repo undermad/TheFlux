@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
+using JetBrains.Annotations;
 using UnityEngine.SceneManagement;
 using VContainer;
 
@@ -12,6 +13,7 @@ namespace TheFlux.Core.Scripts.Services.SceneService
     public class SceneService
     {
         private SceneInitiatorService.SceneInitiatorService initiatorService;
+        private Dictionary<SceneGroupsName, SceneGroup> sceneGroups = new();
 
         [Inject]
         public SceneService(SceneInitiatorService.SceneInitiatorService initiatorService)
@@ -19,22 +21,29 @@ namespace TheFlux.Core.Scripts.Services.SceneService
             this.initiatorService = initiatorService;
         }
 
+        public void SetSceneGroups(SceneGroup[] sceneGroups)
+        {
+            foreach (var sceneGroup in sceneGroups)
+            {
+                this.sceneGroups.Add(sceneGroup.groupNameName, sceneGroup);
+            }
+        }
+
 
         public async UniTask LoadScenes(
-            SceneGroup group,
+            SceneGroupsName sceneGroupsName,
             IProgress<float> progress,
             CancellationTokenSource cancellationTokenSource,
             bool reloadDupScenes = false)
         {
-            await UnloadScenes(cancellationTokenSource);
-            var loadedScenes = await LoadSceneGroup(group, progress, cancellationTokenSource, reloadDupScenes);
+            var sceneGroup = sceneGroups[sceneGroupsName];
+            
+            // ToDo 
+            // Handle Scene Unloading here - make sure those are efficient.
+            // await UnloadScenes(cancellationTokenSource);
+            var loadedScenes = await LoadSceneGroup(sceneGroup, progress, cancellationTokenSource, reloadDupScenes);
             await InitializeEntryPoint(loadedScenes, progress, cancellationTokenSource);
 
-            var activeScene = SceneManager.GetSceneByName(group.FindSceneNameByType(SceneType.ActiveScene));
-            if (activeScene.IsValid())
-            {
-                SceneManager.SetActiveScene(activeScene);
-            }
             progress.Report(1);
         }
 
@@ -90,7 +99,7 @@ namespace TheFlux.Core.Scripts.Services.SceneService
                 var sceneData = loadedScenes[i];
                 _ = initiatorService
                     // Add Entry Data class here!
-                    .InvokeInitiatorLoadEntryPoint(sceneData.sceneType, null, cancellationTokenSource)
+                    .InvokeInitiatorLoadEntryPoint(sceneData.sceneType, cancellationTokenSource)
                     .ContinueWith(async () =>
                     {
                         await semaphore.WaitAsync();

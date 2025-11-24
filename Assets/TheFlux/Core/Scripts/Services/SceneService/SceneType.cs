@@ -6,5 +6,7 @@
         MainMenu,
         UI,
         Gameplay,
+        Game,
+        Lobby
     }
 }

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine.Serialization;
 
 namespace TheFlux.Core.Scripts.Services.SceneService
 {
     [Serializable]
     public class SceneGroup
     {
-        public string groupName = "New Scene Group";
+        [FormerlySerializedAs("groupNamesName")] [FormerlySerializedAs("groupName")] public SceneGroupsName groupNameName;
         public List<SceneData> scenes;
 
         public string FindSceneNameByType(SceneType sceneType)

@@ -11,9 +11,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Bootstrap.unity
     guid: 3471ed76ede156e489e4f97542deea3c
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/UI.unity
     guid: c3a9f96f36d32fb428c0c6b5eb6d6847
+  - enabled: 1
+    path: Assets/Scenes/Game.unity
+    guid: f6b0aee954ac4924a8247a60623ae312
+  - enabled: 1
+    path: Assets/Scenes/Lobby.unity
+    guid: 40b35cd78aac55544b6b1ffd98b82d4d
   - enabled: 1
     path: Assets/Scenes/Gameplay.unity
     guid: c2f2a243e24ba3341af067ca9b674f7d

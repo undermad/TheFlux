@@ -23,9 +23,10 @@ namespace TheFlux.Core.Scripts.Mvc.LoadingScreen
             loadingScreenView.Show();
         }
 
-        private void Hide()
+        public void Hide()
         {
             LogService.Log("Hiding loading screen", LogLevel.Info, LogCategory.UI);
+            loadingScreenView.RemoveActionFromContinueButton();
             loadingScreenView.Hide();
         }
 

@@ -20,6 +20,11 @@ namespace TheFlux.Core.Scripts.Mvc.LoadingScreen
             continueButton.onClick.AddListener(onClickAction.Invoke);
         }
 
+        public void RemoveActionFromContinueButton()
+        {
+            continueButton.onClick.RemoveAllListeners();
+        }
+
         public void Show()
         {
             gameObject.SetActive(true);
