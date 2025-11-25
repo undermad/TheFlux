@@ -2,11 +2,8 @@
 {
     public enum SceneType
     {
-        ActiveScene,
-        MainMenu,
-        UI,
-        Gameplay,
         Game,
+        Gameplay,
         Lobby
     }
 }

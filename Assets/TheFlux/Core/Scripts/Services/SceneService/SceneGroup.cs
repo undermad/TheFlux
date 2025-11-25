@@ -7,7 +7,7 @@ namespace TheFlux.Core.Scripts.Services.SceneService
     [Serializable]
     public class SceneGroup
     {
-        [FormerlySerializedAs("groupNamesName")] [FormerlySerializedAs("groupName")] public SceneGroupsName groupNameName;
+        public SceneGroupsName groupName;
         public List<SceneData> scenes;
 
         public string FindSceneNameByType(SceneType sceneType)

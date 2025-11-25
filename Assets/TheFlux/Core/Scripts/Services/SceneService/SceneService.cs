@@ -12,8 +12,10 @@ namespace TheFlux.Core.Scripts.Services.SceneService
 {
     public class SceneService
     {
-        private SceneInitiatorService.SceneInitiatorService initiatorService;
-        private Dictionary<SceneGroupsName, SceneGroup> sceneGroups = new();
+        private readonly SceneInitiatorService.SceneInitiatorService initiatorService;
+
+        private SceneGroup coreSceneGroup;
+        private readonly Dictionary<SceneGroupsName, SceneGroup> sceneGroups = new();
 
         [Inject]
         public SceneService(SceneInitiatorService.SceneInitiatorService initiatorService)
@@ -21,14 +23,22 @@ namespace TheFlux.Core.Scripts.Services.SceneService
             this.initiatorService = initiatorService;
         }
 
-        public void SetSceneGroups(SceneGroup[] sceneGroups)
+        public void SetSceneGroups(SceneGroup coreSceneGroup, SceneGroup[] sceneGroups)
         {
+            this.coreSceneGroup = coreSceneGroup;
             foreach (var sceneGroup in sceneGroups)
             {
-                this.sceneGroups.Add(sceneGroup.groupNameName, sceneGroup);
+                this.sceneGroups.Add(sceneGroup.groupName, sceneGroup);
             }
         }
 
+        public async UniTask LoadCoreGameScenes(IProgress<float> progress,
+            CancellationTokenSource cancellationTokenSource)
+        {
+            var loadedScenes = await LoadSceneGroup(coreSceneGroup, progress, cancellationTokenSource, false);
+            await InitializeEntryPoint(loadedScenes, progress, cancellationTokenSource);
+            progress.Report(1);
+        }
 
         public async UniTask LoadScenes(
             SceneGroupsName sceneGroupsName,
@@ -37,10 +47,8 @@ namespace TheFlux.Core.Scripts.Services.SceneService
             bool reloadDupScenes = false)
         {
             var sceneGroup = sceneGroups[sceneGroupsName];
-            
-            // ToDo 
-            // Handle Scene Unloading here - make sure those are efficient.
-            // await UnloadScenes(cancellationTokenSource);
+
+            await UnloadScenes(cancellationTokenSource);
             var loadedScenes = await LoadSceneGroup(sceneGroup, progress, cancellationTokenSource, reloadDupScenes);
             await InitializeEntryPoint(loadedScenes, progress, cancellationTokenSource);
 
@@ -98,7 +106,6 @@ namespace TheFlux.Core.Scripts.Services.SceneService
             {
                 var sceneData = loadedScenes[i];
                 _ = initiatorService
-                    // Add Entry Data class here!
                     .InvokeInitiatorLoadEntryPoint(sceneData.sceneType, cancellationTokenSource)
                     .ContinueWith(async () =>
                     {
@@ -119,36 +126,27 @@ namespace TheFlux.Core.Scripts.Services.SceneService
             {
                 await UniTask.Delay(100);
             }
+
             await UniTask.Delay(100);
         }
 
         private async UniTask UnloadScenes(CancellationTokenSource cancellationTokenSource)
         {
-            var scenesToUnload = new List<string>();
-            for (var i = 1; i < SceneManager.sceneCount; i++)
-            {
-                var loadedScene = SceneManager.GetSceneAt(i);
-                var loadedSceneName = loadedScene.name;
-                if (!loadedScene.isLoaded || loadedSceneName.Equals("Bootstrap"))
-                {
-                    continue;
-                }
+            var coreNames = coreSceneGroup.scenes.Select(s => s.Name).ToHashSet();
+            // Starting from 1 should never unload Bootstrap scene
+            var scenesToUnload = Enumerable.Range(1, SceneManager.sceneCount - 1)
+                .Select(SceneManager.GetSceneAt)
+                .Where(scene => scene.isLoaded && !coreNames.Contains(scene.name))
+                .ToList();
 
-                scenesToUnload.Add(loadedSceneName);
-            }
+            var operations = scenesToUnload.Select(scene => SceneManager.UnloadSceneAsync(scene.name))
+                .Where(op => op != null)
+                .ToList();
 
-            var operationGroup = new AsyncOperationGroup(scenesToUnload.Count);
-            foreach (var operation in scenesToUnload.Select(SceneManager.UnloadSceneAsync)
-                         .Where(operation => operation != null))
-            {
-                operationGroup.AsyncOperations.Add(operation);
-            }
+            var operationGroup = new AsyncOperationGroup(operations.Count);
+            operations.ForEach(op => operationGroup.AsyncOperations.Add(op));
 
-            while (!operationGroup.IsDone)
-            {
-                cancellationTokenSource.Token.ThrowIfCancellationRequested();
-                await UniTask.Delay(100);
-            }
+            await UniTask.WaitUntil(() => operationGroup.IsDone, cancellationToken: cancellationTokenSource.Token);
         }
     }
 }

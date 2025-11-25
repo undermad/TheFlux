@@ -50,8 +50,8 @@ namespace TheFlux.Core.Scripts.Services.StateMachineService
                         LogLevel.Error, LogCategory.Error);
                     return;
                 }
-                
-                loadingScreenController.Show();
+
+                loadingScreenController.ShowWithManualLoading();
                 await _currentGameState.ExitState(cancellationTokenSource);
                 _ = loadingScreenController.SetLoadingSlider(0.5f, cancellationTokenSource);
                 _currentGameState = newState;

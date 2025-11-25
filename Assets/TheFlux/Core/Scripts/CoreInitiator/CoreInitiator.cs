@@ -13,6 +13,7 @@ namespace TheFlux.Core.Scripts.CoreInitiator
 {
     public class CoreInitiator : MonoBehaviour
     {
+        [SerializeField] private SceneGroup coreSceneGroup;
         [SerializeField] private SceneGroup[] sceneGroups;
         private SceneService _sceneService;
         private LoadingScreenController _loadingScreenController;
@@ -43,9 +44,9 @@ namespace TheFlux.Core.Scripts.CoreInitiator
         {
             try
             {
-                _loadingScreenController.Show();
+                var loadingProgress = _loadingScreenController.ShowWithAutoLoading(cancellationToken);
                 InitialiseServices();
-                await LoadSceneGroup(cancellationToken);
+                await LoadSceneGroup(loadingProgress, cancellationToken);
             }
             catch (OperationCanceledException)
             {
@@ -59,25 +60,14 @@ namespace TheFlux.Core.Scripts.CoreInitiator
 
         private void InitialiseServices()
         {
-            _sceneService.SetSceneGroups(sceneGroups);
+            _sceneService.SetSceneGroups(coreSceneGroup, sceneGroups);
         }
 
-        private async UniTask LoadSceneGroup(CancellationTokenSource cancellationTokenSource)
+        private async UniTask LoadSceneGroup(IProgress<float> loadingProgress, CancellationTokenSource cancellationTokenSource)
         {
-            var progress = new LoadingProgress();
-            progress.Progressed += progressValue => NotifyProgress(progressValue, cancellationTokenSource).Forget();
-            await _sceneService.LoadScenes(SceneGroupsName.Core, progress, cancellationTokenSource);
+            await _sceneService.LoadCoreGameScenes(loadingProgress, cancellationTokenSource);
             LogService.Log("Scenes loaded");
         }
 
-        private async UniTask NotifyProgress(float progress, CancellationTokenSource cancellationTokenSource)
-        {
-            LogService.Log($"Progress: {progress}", LogLevel.Info, LogCategory.UI);
-            await _loadingScreenController.SetLoadingSlider(progress, cancellationTokenSource);
-            if (progress >= 1f)
-            {
-                _loadingScreenController.ActivateContinueButton();
-            }
-        }
     }
 }
