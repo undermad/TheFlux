@@ -42,10 +42,11 @@ namespace TheFlux.Core.Scripts.Services.SceneService
 
         public async UniTask LoadScenes(
             SceneGroupsName sceneGroupsName,
-            IProgress<float> progress,
             CancellationTokenSource cancellationTokenSource,
+            IProgress<float> progress = null,
             bool reloadDupScenes = false)
         {
+            progress ??= new Progress<float>();
             var sceneGroup = sceneGroups[sceneGroupsName];
 
             await UnloadScenes(cancellationTokenSource);

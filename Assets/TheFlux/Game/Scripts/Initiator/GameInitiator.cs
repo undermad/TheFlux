@@ -21,8 +21,8 @@ namespace TheFlux.Game.Scripts.Initiator
             this.objectResolver = objectResolver;
         }
 
-
         public SceneType SceneType => SceneType.Game;
+        
         public async UniTask LoadEntryPoint(IInitiatorEntryData enterDataObject, CancellationTokenSource cancellationTokenSource)
         {
             var entryData = (GameEntryData) enterDataObject;

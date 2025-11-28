@@ -8,6 +8,7 @@ namespace TheFlux.Core.Scripts.Services.StateMachineService
     {
         CancellationTokenSource CancellationTokenSource { get; }
         GameStateType GameStateType { get; }
+        UniTask LoadAsFirstGameState(CancellationTokenSource cancellationToken);
         UniTask LoadState(CancellationTokenSource cancellationTokenSource);
         UniTask StartState(CancellationTokenSource cancellationTokenSource);
         UniTask ExitState(CancellationTokenSource cancellationTokenSource);

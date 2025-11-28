@@ -4,7 +4,9 @@
     "com.cysharp.messagepipe.vcontainer": "https://github.com/Cysharp/MessagePipe.git?path=src/MessagePipe.Unity/Assets/Plugins/MessagePipe.VContainer",
     "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
     "com.eflatun.scenereference": "4.1.1",
+    "com.github-glitchenzo.nugetforunity": "4.5.0",
     "com.kylewbanks.scenerefattribute": "0.13.0",
+    "com.unity.addressables": "2.7.6",
     "com.unity.cinemachine": "3.1.5",
     "com.unity.collab-proxy": "2.10.0",
     "com.unity.feature.2d": "2.0.1",
@@ -49,8 +51,7 @@
     "com.unity.modules.video": "1.0.0",
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
-    "com.unity.modules.xr": "1.0.0",
-    "com.github-glitchenzo.nugetforunity": "4.5.0"
+    "com.unity.modules.xr": "1.0.0"
   },
   "scopedRegistries": [
     {

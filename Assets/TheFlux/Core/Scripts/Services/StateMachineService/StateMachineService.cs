@@ -28,7 +28,7 @@ namespace TheFlux.Core.Scripts.Services.StateMachineService
             CancellationTokenSource cancellationTokenSource)
         {
             _currentGameState = initialState;
-            await _currentGameState.LoadState(cancellationTokenSource);
+            await _currentGameState.LoadAsFirstGameState(cancellationTokenSource);
             await _currentGameState.StartState(cancellationTokenSource);
         }
 

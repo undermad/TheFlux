@@ -16,6 +16,11 @@ namespace TheFlux.Core.Scripts.Services.StateMachineService
         public CancellationTokenSource CancellationTokenSource => CancellationTokenSource.CreateLinkedTokenSource(_cancellationTokenSource.Token);
         public abstract GameStateType GameStateType { get; }
 
+        public virtual UniTask LoadAsFirstGameState(CancellationTokenSource cancellationToken)
+        {
+            return UniTask.CompletedTask;
+        }
+
         public virtual UniTask LoadState(CancellationTokenSource cancellationTokenSource)
         {
             return UniTask.CompletedTask;

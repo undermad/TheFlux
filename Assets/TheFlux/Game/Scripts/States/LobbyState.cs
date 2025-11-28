@@ -20,10 +20,17 @@ namespace TheFlux.Game.Scripts.States
             this.sceneService = sceneService;
         }
 
+        public override async UniTask LoadAsFirstGameState(CancellationTokenSource cancellationTokenSource)
+        {
+            await base.LoadAsFirstGameState(cancellationTokenSource);
+            await sceneService.LoadScenes(SceneGroupsName.Lobby, cancellationTokenSource);
+
+        }
+
         public override async UniTask LoadState(CancellationTokenSource cancellationTokenSource)
         {
             await base.LoadState(cancellationTokenSource);
-            await sceneService.LoadScenes(SceneGroupsName.Lobby, new Progress<float>(), cancellationTokenSource);
+            await sceneService.LoadScenes(SceneGroupsName.Lobby, cancellationTokenSource);
         }
 
         public override async UniTask ExitState(CancellationTokenSource cancellationTokenSource)
