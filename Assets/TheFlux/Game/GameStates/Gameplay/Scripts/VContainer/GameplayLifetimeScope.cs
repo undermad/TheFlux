@@ -1,12 +1,15 @@
 ﻿using TheFlux.Core.Scripts.CoreInitiator;
+using TheFlux.Core.Scripts.Services.CommandFactory;
 using TheFlux.Core.Scripts.Services.SceneInitiatorService;
 using TheFlux.Game.Game.Gameplay.Scripts.Player;
 using TheFlux.Game.Game.Gameplay.Scripts.SceneInitiator;
+using TheFlux.Game.GameStates.Gameplay.Scripts.Player;
+using TheFlux.Game.GameStates.Gameplay.Scripts.SceneInitiator;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace TheFlux.Game.Game.Gameplay.Scripts.VContainer
+namespace TheFlux.Game.GameStates.Gameplay.Scripts.VContainer
 {
     public class GameplayLifetimeScope : LifetimeScope
     {
@@ -14,6 +17,9 @@ namespace TheFlux.Game.Game.Gameplay.Scripts.VContainer
         
         protected override void Configure(IContainerBuilder builder)
         {
+            // COMMAND FACTORY
+            builder.Register<CommandFactory>(Lifetime.Scoped);
+            
             // SCENE
             builder.Register<ISceneInitiator, GameplayInitiator>(Lifetime.Scoped);
             builder.Register<IInitiatorEntryData, GameplayEntryData>(Lifetime.Scoped);

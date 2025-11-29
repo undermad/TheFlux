@@ -3,11 +3,12 @@ using TheFlux.Core.Scripts.Services.CommandFactory;
 using TheFlux.Core.Scripts.Services.SceneInitiatorService;
 using TheFlux.Game.Game.Lobby.Scripts.SceneInitiator;
 using TheFlux.Game.GameStates.Lobby.Scripts.MVC.LobbyCanvas;
+using TheFlux.Game.GameStates.Lobby.Scripts.SceneInitiator;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace TheFlux.Game.Game.Lobby.Scripts.VContainer
+namespace TheFlux.Game.GameStates.Lobby.Scripts.VContainer
 {
     public class LobbyLifetimeScope : LifetimeScope
     {

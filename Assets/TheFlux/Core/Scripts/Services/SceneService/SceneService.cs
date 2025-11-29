@@ -142,7 +142,7 @@ namespace TheFlux.Core.Scripts.Services.SceneService
         {
             var sceneGroup = sceneGroups[sceneGroupsName];
             var scenesNames = sceneGroup.scenes.Select(s => s.Name).ToHashSet();
-            var scenesToUnload = Enumerable.Range(0, SceneManager.sceneCount - 1)
+            var scenesToUnload = Enumerable.Range(0, SceneManager.sceneCount)
                 .Select(SceneManager.GetSceneAt)
                 .Where(scene => scene.isLoaded && scenesNames.Contains(scene.name))
                 .ToList();
@@ -161,7 +161,7 @@ namespace TheFlux.Core.Scripts.Services.SceneService
         // {
         //     var coreNames = coreSceneGroup.scenes.Select(s => s.Name).ToHashSet();
         //     // Starting from 1 should never unload Bootstrap scene
-        //     var scenesToUnload = Enumerable.Range(1, SceneManager.sceneCount - 1)
+        //     var scenesToUnload = Enumerable.Range(1, SceneManager.sceneCount)
         //         .Select(SceneManager.GetSceneAt)
         //         .Where(scene => scene.isLoaded && !coreNames.Contains(scene.name))
         //         .ToList();

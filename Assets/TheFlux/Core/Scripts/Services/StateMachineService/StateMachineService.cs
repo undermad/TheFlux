@@ -59,7 +59,7 @@ namespace TheFlux.Core.Scripts.Services.StateMachineService
                 _currentGameState = newState;
                 await _currentGameState.LoadState(cancellationTokenSource);
                 await loadingScreenController.SetLoadingSlider(1, cancellationTokenSource);
-                loadingScreenController.ActivateWaitingAnimation();
+                await loadingScreenController.ActivateWaitingAnimation();
                 await actionsController.WaitForAnyKeyPressed(cancellationTokenSource);
                 loadingScreenController.Hide();
                 await _currentGameState.StartState(cancellationTokenSource);

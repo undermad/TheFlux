@@ -14,7 +14,10 @@ namespace TheFlux.Game.Scripts.VContainer
             // SCENE
             builder.Register<ISceneInitiator, GameInitiator>(Lifetime.Scoped);
             builder.Register<IInitiatorEntryData, GameEntryData>(Lifetime.Scoped);
+            
+            // STATE MACHINE
             builder.Register<LobbyState>(Lifetime.Scoped);
+            builder.Register<GameplayState>(Lifetime.Scoped);
             
             
             // CALLBACK

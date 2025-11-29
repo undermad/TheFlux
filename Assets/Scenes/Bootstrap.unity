@@ -252,7 +252,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9055628991384824634, guid: bfda3b503db36374ab32c848ba02d54e, type: 3}
       propertyPath: sceneGroups.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9055628991384824634, guid: bfda3b503db36374ab32c848ba02d54e, type: 3}
       propertyPath: coreSceneGroup.scenes.Array.size
@@ -264,7 +264,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9055628991384824634, guid: bfda3b503db36374ab32c848ba02d54e, type: 3}
       propertyPath: sceneGroups.Array.data[1].groupName
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9055628991384824634, guid: bfda3b503db36374ab32c848ba02d54e, type: 3}
       propertyPath: sceneGroups.Array.data[0].groupNameName
@@ -316,7 +316,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9055628991384824634, guid: bfda3b503db36374ab32c848ba02d54e, type: 3}
       propertyPath: sceneGroups.Array.data[1].scenes.Array.data[0].sceneType
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9055628991384824634, guid: bfda3b503db36374ab32c848ba02d54e, type: 3}
       propertyPath: sceneGroups.Array.data[1].scenes.Array.data[1].sceneType
@@ -332,7 +332,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9055628991384824634, guid: bfda3b503db36374ab32c848ba02d54e, type: 3}
       propertyPath: sceneGroups.Array.data[1].scenes.Array.data[0].reference.guid
-      value: 40b35cd78aac55544b6b1ffd98b82d4d
+      value: c2f2a243e24ba3341af067ca9b674f7d
       objectReference: {fileID: 0}
     - target: {fileID: 9055628991384824634, guid: bfda3b503db36374ab32c848ba02d54e, type: 3}
       propertyPath: sceneGroups.Array.data[1].scenes.Array.data[1].reference.guid
@@ -349,7 +349,7 @@ PrefabInstance:
     - target: {fileID: 9055628991384824634, guid: bfda3b503db36374ab32c848ba02d54e, type: 3}
       propertyPath: sceneGroups.Array.data[1].scenes.Array.data[0].reference.asset
       value: 
-      objectReference: {fileID: 102900000, guid: 40b35cd78aac55544b6b1ffd98b82d4d, type: 3}
+      objectReference: {fileID: 102900000, guid: c2f2a243e24ba3341af067ca9b674f7d, type: 3}
     - target: {fileID: 9055628991384824634, guid: bfda3b503db36374ab32c848ba02d54e, type: 3}
       propertyPath: sceneGroups.Array.data[1].scenes.Array.data[1].reference.asset
       value: 

@@ -4,10 +4,11 @@ using TheFlux.Core.Scripts.CoreInitiator;
 using TheFlux.Core.Scripts.Services.CommandFactory;
 using TheFlux.Core.Scripts.Services.SceneInitiatorService;
 using TheFlux.Core.Scripts.Services.SceneService;
+using TheFlux.Game.Game.Lobby.Scripts.SceneInitiator;
 using TheFlux.Game.GameStates.Lobby.Scripts.Commands;
 using VContainer;
 
-namespace TheFlux.Game.Game.Lobby.Scripts.SceneInitiator
+namespace TheFlux.Game.GameStates.Lobby.Scripts.SceneInitiator
 {
     public class LobbyInitiator : ISceneInitiator
     {
@@ -39,7 +40,7 @@ namespace TheFlux.Game.Game.Lobby.Scripts.SceneInitiator
 
         public UniTask InitExitPoint(CancellationTokenSource cancellationTokenSource)
         {
-            throw new System.NotImplementedException();
+            return UniTask.CompletedTask;
         }
     }
 }

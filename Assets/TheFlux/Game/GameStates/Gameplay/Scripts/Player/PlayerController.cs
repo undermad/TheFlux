@@ -1,8 +1,9 @@
 ﻿using TheFlux.Core.Scripts.Mvc.Camera.MainCamera;
 using TheFlux.Core.Scripts.Services.LogService;
+using TheFlux.Game.Game.Gameplay.Scripts.Player;
 using VContainer;
 
-namespace TheFlux.Game.Game.Gameplay.Scripts.Player
+namespace TheFlux.Game.GameStates.Gameplay.Scripts.Player
 {
     public class PlayerController
     {
