@@ -3,6 +3,7 @@ using TheFlux.Core.Scripts.Mvc.Camera.MainCamera;
 using TheFlux.Core.Scripts.Mvc.Camera.UICamera;
 using TheFlux.Core.Scripts.Mvc.InputSystem;
 using TheFlux.Core.Scripts.Mvc.LoadingScreen;
+using TheFlux.Core.Scripts.Services.CommandFactory;
 using TheFlux.Core.Scripts.Services.LogService;
 using TheFlux.Core.Scripts.Services.SceneInitiatorService;
 using TheFlux.Core.Scripts.Services.SceneService;
@@ -61,6 +62,8 @@ namespace TheFlux.Core.Scripts.VContainer
                 .WithParameter(loadingScreen);
             builder.RegisterComponent(coreInitiator);
             
+            // SERVICES
+            builder.Register<CommandFactory>(Lifetime.Singleton);
             
             // CALLBACK
             builder.RegisterBuildCallback(container =>

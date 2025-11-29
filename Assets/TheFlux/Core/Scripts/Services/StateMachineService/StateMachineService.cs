@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using TheFlux.Core.Scripts.Mvc.InputSystem;
 using TheFlux.Core.Scripts.Mvc.LoadingScreen;
 using TheFlux.Core.Scripts.Services.LogService;
 using UnityEngine;
@@ -10,13 +11,15 @@ namespace TheFlux.Core.Scripts.Services.StateMachineService
 {
     public class StateMachineService
     {
+        private readonly ActionsController actionsController;
         private readonly LoadingScreenController loadingScreenController;
         private IGameState _currentGameState;
 
         [Inject]
-        public StateMachineService(LoadingScreenController loadingScreenController)
+        public StateMachineService(LoadingScreenController loadingScreenController, ActionsController actionsController)
         {
             this.loadingScreenController = loadingScreenController;
+            this.actionsController = actionsController;
         }
 
         public IGameState CurrentState()
@@ -29,7 +32,6 @@ namespace TheFlux.Core.Scripts.Services.StateMachineService
         {
             _currentGameState = initialState;
             await _currentGameState.LoadAsFirstGameState(cancellationTokenSource);
-            await _currentGameState.StartState(cancellationTokenSource);
         }
 
         public void SwitchState(IGameState newState)
@@ -57,6 +59,8 @@ namespace TheFlux.Core.Scripts.Services.StateMachineService
                 _currentGameState = newState;
                 await _currentGameState.LoadState(cancellationTokenSource);
                 await loadingScreenController.SetLoadingSlider(1, cancellationTokenSource);
+                loadingScreenController.ActivateWaitingAnimation();
+                await actionsController.WaitForAnyKeyPressed(cancellationTokenSource);
                 loadingScreenController.Hide();
                 await _currentGameState.StartState(cancellationTokenSource);
             }

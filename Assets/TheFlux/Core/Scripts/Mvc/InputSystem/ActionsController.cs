@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using VContainer;
 using VContainer.Unity;
 using Object = UnityEngine.Object;
@@ -58,6 +61,20 @@ namespace TheFlux.Core.Scripts.Mvc.InputSystem
             }
 
             actionsView.inputActionAsset.FindActionMap(InputActionName).Disable();
+        }
+
+        public async UniTask WaitForAnyKeyPressed(CancellationTokenSource cancellationTokenSource)
+        {
+            await UniTask.WaitUntil(IsAnyKeyPressed);
+        }
+
+        private bool IsAnyKeyPressed()
+        {
+            return
+                (Keyboard.current?.anyKey.wasPressedThisFrame == true) ||
+                (Mouse.current?.leftButton.wasPressedThisFrame == true) ||
+                (Mouse.current?.rightButton.wasPressedThisFrame == true) ||
+                (Touchscreen.current?.primaryTouch.press.wasPressedThisFrame == true);
         }
 
     }

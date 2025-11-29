@@ -4,11 +4,11 @@ namespace TheFlux.Core.Scripts.Services.CommandFactory
 {
     public abstract class BaseCommand : IBaseCommand
     {
-        protected Container DiContainer;
+        protected IObjectResolver ObjectResolver;
 
-        public void SetObjectResolver(Container diContainer)
+        public void SetObjectResolver(IObjectResolver objectResolver)
         {
-            DiContainer = diContainer;
+            ObjectResolver = objectResolver;
         }
 
         public abstract void ResolveDependencies();

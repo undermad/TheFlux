@@ -30,5 +30,10 @@ namespace TheFlux.Core.Scripts.Services.Helpers
             currentAnimationTween?.Kill();
             slider.value = 0;
         }
+
+        public float GetSliderValue()
+        {
+            return slider.value;
+        }
     }
 }

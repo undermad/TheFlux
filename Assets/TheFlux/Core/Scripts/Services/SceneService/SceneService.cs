@@ -12,15 +12,15 @@ namespace TheFlux.Core.Scripts.Services.SceneService
 {
     public class SceneService
     {
-        private readonly SceneInitiatorService.SceneInitiatorService initiatorService;
+        private readonly SceneInitiatorService.SceneInitiatorService sceneInitiatorService;
 
         private SceneGroup coreSceneGroup;
         private readonly Dictionary<SceneGroupsName, SceneGroup> sceneGroups = new();
 
         [Inject]
-        public SceneService(SceneInitiatorService.SceneInitiatorService initiatorService)
+        public SceneService(SceneInitiatorService.SceneInitiatorService sceneInitiatorService)
         {
-            this.initiatorService = initiatorService;
+            this.sceneInitiatorService = sceneInitiatorService;
         }
 
         public void SetSceneGroups(SceneGroup coreSceneGroup, SceneGroup[] sceneGroups)
@@ -49,11 +49,8 @@ namespace TheFlux.Core.Scripts.Services.SceneService
             progress ??= new Progress<float>();
             var sceneGroup = sceneGroups[sceneGroupsName];
 
-            await UnloadScenes(cancellationTokenSource);
             var loadedScenes = await LoadSceneGroup(sceneGroup, progress, cancellationTokenSource, reloadDupScenes);
             await InitializeEntryPoint(loadedScenes, progress, cancellationTokenSource);
-
-            progress.Report(1);
         }
 
         private async UniTask<List<SceneData>> LoadSceneGroup(
@@ -106,7 +103,7 @@ namespace TheFlux.Core.Scripts.Services.SceneService
             for (var i = 0; i < loadedScenesCount; i++)
             {
                 var sceneData = loadedScenes[i];
-                _ = initiatorService
+                _ = sceneInitiatorService
                     .InvokeInitiatorLoadEntryPoint(sceneData.sceneType, cancellationTokenSource)
                     .ContinueWith(async () =>
                     {
@@ -131,13 +128,23 @@ namespace TheFlux.Core.Scripts.Services.SceneService
             await UniTask.Delay(100);
         }
 
-        private async UniTask UnloadScenes(CancellationTokenSource cancellationTokenSource)
+        public async UniTask StartScenes(SceneGroupsName sceneGroupsName,
+            CancellationTokenSource cancellationTokenSource)
         {
-            var coreNames = coreSceneGroup.scenes.Select(s => s.Name).ToHashSet();
-            // Starting from 1 should never unload Bootstrap scene
-            var scenesToUnload = Enumerable.Range(1, SceneManager.sceneCount - 1)
+            var sceneGroup = sceneGroups[sceneGroupsName];
+            foreach (var sceneData in sceneGroup.scenes)
+            {
+                await sceneInitiatorService.InvokeInitiatorStartEntryPoint(sceneData.sceneType, cancellationTokenSource);
+            }
+        }
+        
+        public async UniTask UnloadScenes(SceneGroupsName sceneGroupsName, CancellationTokenSource cancellationTokenSource)
+        {
+            var sceneGroup = sceneGroups[sceneGroupsName];
+            var scenesNames = sceneGroup.scenes.Select(s => s.Name).ToHashSet();
+            var scenesToUnload = Enumerable.Range(0, SceneManager.sceneCount - 1)
                 .Select(SceneManager.GetSceneAt)
-                .Where(scene => scene.isLoaded && !coreNames.Contains(scene.name))
+                .Where(scene => scene.isLoaded && scenesNames.Contains(scene.name))
                 .ToList();
 
             var operations = scenesToUnload.Select(scene => SceneManager.UnloadSceneAsync(scene.name))
@@ -149,5 +156,24 @@ namespace TheFlux.Core.Scripts.Services.SceneService
 
             await UniTask.WaitUntil(() => operationGroup.IsDone, cancellationToken: cancellationTokenSource.Token);
         }
+
+        // private async UniTask UnloadScenes(CancellationTokenSource cancellationTokenSource)
+        // {
+        //     var coreNames = coreSceneGroup.scenes.Select(s => s.Name).ToHashSet();
+        //     // Starting from 1 should never unload Bootstrap scene
+        //     var scenesToUnload = Enumerable.Range(1, SceneManager.sceneCount - 1)
+        //         .Select(SceneManager.GetSceneAt)
+        //         .Where(scene => scene.isLoaded && !coreNames.Contains(scene.name))
+        //         .ToList();
+        //
+        //     var operations = scenesToUnload.Select(scene => SceneManager.UnloadSceneAsync(scene.name))
+        //         .Where(op => op != null)
+        //         .ToList();
+        //
+        //     var operationGroup = new AsyncOperationGroup(operations.Count);
+        //     operations.ForEach(op => operationGroup.AsyncOperations.Add(op));
+        //
+        //     await UniTask.WaitUntil(() => operationGroup.IsDone, cancellationToken: cancellationTokenSource.Token);
+        // }
     }
 }

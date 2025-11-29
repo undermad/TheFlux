@@ -67,6 +67,9 @@ namespace TheFlux.Core.Scripts.CoreInitiator
         {
             await _sceneService.LoadCoreGameScenes(loadingProgress, cancellationTokenSource);
             LogService.Log("Scenes loaded");
+            await actionsController.WaitForAnyKeyPressed(cancellationTokenSource);
+            _loadingScreenController.Hide();
+            await _sceneService.StartScenes(SceneGroupsName.Lobby, cancellationTokenSource);
         }
 
     }

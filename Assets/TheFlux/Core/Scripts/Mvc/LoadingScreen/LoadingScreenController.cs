@@ -26,7 +26,6 @@ namespace TheFlux.Core.Scripts.Mvc.LoadingScreen
             progress = new LoadingProgress();
             progress.Progressed += progressValue => NotifyProgress(progressValue, cancellationTokenSource).Forget();
             loadingScreenView.ResetLoadingScreen();
-            loadingScreenView.AddActionToContinueButton(Hide);
             loadingScreenView.Show();
             return progress;
         }
@@ -35,14 +34,12 @@ namespace TheFlux.Core.Scripts.Mvc.LoadingScreen
         {
             LogService.Log("Showing loading screen", LogLevel.Info, LogCategory.UI);
             loadingScreenView.ResetLoadingScreen();
-            loadingScreenView.AddActionToContinueButton(Hide);
             loadingScreenView.Show();
         }
 
         public void Hide()
         {
             LogService.Log("Hiding loading screen", LogLevel.Info, LogCategory.UI);
-            loadingScreenView.RemoveActionFromContinueButton();
             loadingScreenView.Hide();
         }
 
@@ -51,9 +48,10 @@ namespace TheFlux.Core.Scripts.Mvc.LoadingScreen
             await loadingScreenView.AnimateSliderTo(valueBetween0To1, cancellationTokenSource);
         }
 
-        public void ActivateContinueButton()
+        public async UniTask ActivateWaitingAnimation()
         {
-            loadingScreenView.ActivateContinueButton();
+            await UniTask.WaitUntil(() => loadingScreenView.GetSliderValue() >= 1f);
+            loadingScreenView.ActivateSpinner();
         }
         
         private async UniTask NotifyProgress(float newProgress, CancellationTokenSource cancellationTokenSource)
@@ -62,9 +60,8 @@ namespace TheFlux.Core.Scripts.Mvc.LoadingScreen
             await SetLoadingSlider(newProgress, cancellationTokenSource);
             if (newProgress >= 1f)
             {
-                ActivateContinueButton();
+                ActivateWaitingAnimation().Forget();
             }
         }
-
     }
 }

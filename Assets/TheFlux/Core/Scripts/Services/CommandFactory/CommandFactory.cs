@@ -4,17 +4,18 @@ namespace TheFlux.Core.Scripts.Services.CommandFactory
 {
     public class CommandFactory : ICommandFactory
     {
-        private readonly Container diContainer;
+        private readonly IObjectResolver objectResolver;
 
-        public CommandFactory(Container diContainer)
+        [Inject]
+        public CommandFactory(IObjectResolver objectResolver)
         {
-            this.diContainer = diContainer;
+            this.objectResolver = objectResolver;
         }
         
         public T CreateCommandVoid<T>() where T : ICommandVoid, new()
         {
             var command = new T();
-            command.SetObjectResolver(diContainer);
+            command.SetObjectResolver(objectResolver);
             command.ResolveDependencies();
             return command;
         }
@@ -22,7 +23,7 @@ namespace TheFlux.Core.Scripts.Services.CommandFactory
         public T CreateCommandWithResult<T,V>() where T : ICommandWithResult<V>, new()
         {
             var command = new T();
-            command.SetObjectResolver(diContainer);
+            command.SetObjectResolver(objectResolver);
             command.ResolveDependencies();
             return command;
         }
@@ -30,7 +31,7 @@ namespace TheFlux.Core.Scripts.Services.CommandFactory
         public T CreateCommandAsync<T>() where T : ICommandAsync, new()
         {
             var command = new T();
-            command.SetObjectResolver(diContainer);
+            command.SetObjectResolver(objectResolver);
             command.ResolveDependencies();
             return command;
         }
@@ -38,7 +39,7 @@ namespace TheFlux.Core.Scripts.Services.CommandFactory
         public T CreateCommandAsyncWithResult<T,V>() where T : ICommandAsyncWithResult<V>, new()
         {
             var command = new T();
-            command.SetObjectResolver(diContainer);
+            command.SetObjectResolver(objectResolver);
             command.ResolveDependencies();
             return command;
         }

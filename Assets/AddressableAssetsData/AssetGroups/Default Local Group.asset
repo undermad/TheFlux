@@ -14,7 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_GroupName: Default Local Group
   m_GUID: ad07a4fab5e554a459e4ffcc53f8cd6b
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 371948a5f1b5ab5429275daa8759dbfa
+    m_Address: Assets/TheFlux/Game/GameStates/Lobby/Assets/LobbyCanvas/Canvas.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: dce1b374375da594a8ac4003ce414267, type: 2}
   m_SchemaSet:

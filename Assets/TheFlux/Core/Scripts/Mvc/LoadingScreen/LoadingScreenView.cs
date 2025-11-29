@@ -13,17 +13,7 @@ namespace TheFlux.Core.Scripts.Mvc.LoadingScreen
         [SerializeField, Self] private Canvas loadingCanvas;
         [SerializeField, Child] private Image backgroundImage;
         [SerializeField, Child] private AnimatedSliderView loadingSliderView;
-        [SerializeField, Child] private Button continueButton;
-
-        public void AddActionToContinueButton(Action onClickAction)
-        {
-            continueButton.onClick.AddListener(onClickAction.Invoke);
-        }
-
-        public void RemoveActionFromContinueButton()
-        {
-            continueButton.onClick.RemoveAllListeners();
-        }
+        [SerializeField, Child] private SpinnerView spinnerView;
 
         public void Show()
         {
@@ -38,17 +28,22 @@ namespace TheFlux.Core.Scripts.Mvc.LoadingScreen
         public void ResetLoadingScreen()
         {
             loadingSliderView.ResetSlider();
-            continueButton.gameObject.SetActive(false);
-        }
-
-        public void ActivateContinueButton()
-        {
-            continueButton.gameObject.SetActive(true);
+            spinnerView.SetActive(false);
         }
 
         public async UniTask AnimateSliderTo(float valueBetween0To1, CancellationTokenSource cancellationTokenSource)
         {
             await loadingSliderView.AnimateSliderTo(valueBetween0To1, cancellationTokenSource);
+        }
+
+        public void ActivateSpinner()
+        {
+            spinnerView.SetActive(true);
+        }
+
+        public float GetSliderValue()
+        {
+            return loadingSliderView.GetSliderValue();
         }
     }
 }
