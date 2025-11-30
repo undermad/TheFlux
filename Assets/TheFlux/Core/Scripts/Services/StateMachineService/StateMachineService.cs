@@ -11,15 +11,15 @@ namespace TheFlux.Core.Scripts.Services.StateMachineService
 {
     public class StateMachineService
     {
-        private readonly ActionsController actionsController;
+        private readonly InputActionsController inputActionsController;
         private readonly LoadingScreenController loadingScreenController;
         private IGameState _currentGameState;
 
         [Inject]
-        public StateMachineService(LoadingScreenController loadingScreenController, ActionsController actionsController)
+        public StateMachineService(LoadingScreenController loadingScreenController, InputActionsController inputActionsController)
         {
             this.loadingScreenController = loadingScreenController;
-            this.actionsController = actionsController;
+            this.inputActionsController = inputActionsController;
         }
 
         public IGameState CurrentState()
@@ -60,7 +60,7 @@ namespace TheFlux.Core.Scripts.Services.StateMachineService
                 await _currentGameState.LoadState(cancellationTokenSource);
                 await loadingScreenController.SetLoadingSlider(1, cancellationTokenSource);
                 await loadingScreenController.ActivateWaitingAnimation();
-                await actionsController.WaitForAnyKeyPressed(cancellationTokenSource);
+                await inputActionsController.WaitForAnyKeyPressed(cancellationTokenSource);
                 loadingScreenController.Hide();
                 await _currentGameState.StartState(cancellationTokenSource);
             }

@@ -48,4 +48,5 @@ MonoBehaviour:
     TypeName: TheFlux.Game.Scripts.VContainer.GameLifetimeScope
   autoRun: 0
   autoInjectGameObjects: []
-  playerView: {fileID: 2249256088705639996, guid: 712653e8e6cc40b4e9f2573474b2d413, type: 3}
+  playerView: {fileID: 0}
+  pauseView: {fileID: 0}

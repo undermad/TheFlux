@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0616582acd54f52979b05d99c99e6ba, type: 3}
+  m_Name: UIActionsContainer
+  m_EditorClassIdentifier: 
+  inputActions:
+  - {fileID: 11400000, guid: 307320a378370f942848973add25c2ee, type: 2}

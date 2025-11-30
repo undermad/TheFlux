@@ -44,14 +44,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f683b1ae4369d845b30766062a3422f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneGroups:
-  - groupName: New Scene Group
+  coreSceneGroup:
+    groupName: 0
     scenes:
     - reference:
-        asset: {fileID: 102900000, guid: c3a9f96f36d32fb428c0c6b5eb6d6847, type: 3}
-        guid: c3a9f96f36d32fb428c0c6b5eb6d6847
+        asset: {fileID: 102900000, guid: f6b0aee954ac4924a8247a60623ae312, type: 3}
+        guid: f6b0aee954ac4924a8247a60623ae312
+      sceneType: 0
+  sceneGroups:
+  - groupName: 1
+    scenes:
+    - reference:
+        asset: {fileID: 102900000, guid: 40b35cd78aac55544b6b1ffd98b82d4d, type: 3}
+        guid: 40b35cd78aac55544b6b1ffd98b82d4d
       sceneType: 2
+  - groupName: 2
+    scenes:
     - reference:
         asset: {fileID: 102900000, guid: c2f2a243e24ba3341af067ca9b674f7d, type: 3}
         guid: c2f2a243e24ba3341af067ca9b674f7d
-      sceneType: 0
+      sceneType: 1

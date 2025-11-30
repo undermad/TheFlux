@@ -3,8 +3,11 @@ using TheFlux.Core.Scripts.Services.CommandFactory;
 using TheFlux.Core.Scripts.Services.SceneInitiatorService;
 using TheFlux.Game.Game.Gameplay.Scripts.Player;
 using TheFlux.Game.Game.Gameplay.Scripts.SceneInitiator;
+using TheFlux.Game.GameStates.Gameplay.Scripts.Input;
 using TheFlux.Game.GameStates.Gameplay.Scripts.Player;
 using TheFlux.Game.GameStates.Gameplay.Scripts.SceneInitiator;
+using TheFlux.Game.GameStates.Gameplay.Scripts.Services;
+using TheFlux.Game.GameStates.Gameplay.Scripts.UI.MVC;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -14,6 +17,7 @@ namespace TheFlux.Game.GameStates.Gameplay.Scripts.VContainer
     public class GameplayLifetimeScope : LifetimeScope
     {
         [SerializeField] private PlayerView playerView;
+        [SerializeField] private PauseCanvasView pauseView;
         
         protected override void Configure(IContainerBuilder builder)
         {
@@ -24,8 +28,15 @@ namespace TheFlux.Game.GameStates.Gameplay.Scripts.VContainer
             builder.Register<ISceneInitiator, GameplayInitiator>(Lifetime.Scoped);
             builder.Register<IInitiatorEntryData, GameplayEntryData>(Lifetime.Scoped);
             
-            // PLAYER
+            // TO BE REPLACED WITH FACTORIES ETC
             builder.Register<PlayerController>(Lifetime.Scoped).WithParameter(playerView);
+            builder.Register<PauseCanvasController>(Lifetime.Scoped).WithParameter(pauseView);
+            
+            // SERVICES
+            builder.Register<PauseService>(Lifetime.Scoped);
+            
+            // STANDALONE UNITY LIFECYCLE
+            builder.RegisterEntryPoint<GameplayInputReceiver>(Lifetime.Scoped);
             
             // CALLBACK
             builder.RegisterBuildCallback(container =>

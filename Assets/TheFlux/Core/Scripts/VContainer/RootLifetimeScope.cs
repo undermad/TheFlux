@@ -1,4 +1,5 @@
-﻿using TheFlux.Core.Scripts.CoreInitiator;
+﻿using MessagePipe;
+using TheFlux.Core.Scripts.CoreInitiator;
 using TheFlux.Core.Scripts.Mvc.Camera.MainCamera;
 using TheFlux.Core.Scripts.Mvc.Camera.UICamera;
 using TheFlux.Core.Scripts.Mvc.InputSystem;
@@ -50,7 +51,7 @@ namespace TheFlux.Core.Scripts.VContainer
 
             // INPUT
             builder.RegisterComponent(actionsView);
-            builder.Register<ActionsController>(Lifetime.Singleton)
+            builder.Register<InputActionsController>(Lifetime.Singleton)
                 .WithParameter(actionsView);
 
             builder.Register<MousePositionController>(Lifetime.Singleton);
@@ -65,11 +66,14 @@ namespace TheFlux.Core.Scripts.VContainer
             // SERVICES
             builder.Register<CommandFactory>(Lifetime.Singleton);
             
+            // MESSAGE PIPE
+            builder.RegisterMessagePipe();
+            
             // CALLBACK
             builder.RegisterBuildCallback(container =>
             {
                 _ = container.Resolve<Logger>();
-                var actionsManager = container.Resolve<ActionsController>();
+                var actionsManager = container.Resolve<InputActionsController>();
                 actionsManager.Init();
                 actionsManager.EnableActions();
             });

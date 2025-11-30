@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace TheFlux.Core.Scripts.Mvc.InputSystem
 {
-    [CreateAssetMenu(fileName = "GameInputActionContainer", menuName = "Input/GameInputActionContainer")]
-    public class GameInputActionContainer : ScriptableObject
+    [CreateAssetMenu(fileName = "InputActionContainer", menuName = "Input/InputActionContainer")]
+    public class InputActionContainer : ScriptableObject
     {
         public List<GameInputAction> inputActions;
     }

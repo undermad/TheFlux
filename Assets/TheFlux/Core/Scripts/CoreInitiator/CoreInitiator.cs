@@ -18,7 +18,7 @@ namespace TheFlux.Core.Scripts.CoreInitiator
         private SceneService _sceneService;
         private LoadingScreenController _loadingScreenController;
         private UICameraController _uiCameraController;
-        private ActionsController actionsController;
+        private InputActionsController inputActionsController;
 
 
         [Inject]
@@ -26,13 +26,13 @@ namespace TheFlux.Core.Scripts.CoreInitiator
             SceneService sceneService,
             LoadingScreenController loadingScreenController,
             UICameraController uiCameraController,
-            ActionsController actionsController
+            InputActionsController inputActionsController
         )
         {
             _sceneService = sceneService;
             _loadingScreenController = loadingScreenController;
             _uiCameraController = uiCameraController;
-            this.actionsController = actionsController;
+            this.inputActionsController = inputActionsController;
         }
 
         public void Start()
@@ -67,7 +67,7 @@ namespace TheFlux.Core.Scripts.CoreInitiator
         {
             await _sceneService.LoadCoreGameScenes(loadingProgress, cancellationTokenSource);
             LogService.Log("Scenes loaded");
-            await actionsController.WaitForAnyKeyPressed(cancellationTokenSource);
+            await inputActionsController.WaitForAnyKeyPressed(cancellationTokenSource);
             _loadingScreenController.Hide();
             await _sceneService.StartScenes(SceneGroupsName.Lobby, cancellationTokenSource);
         }

@@ -6,7 +6,7 @@ namespace TheFlux.Core.Scripts.Mvc.InputSystem.InputActions.GameplayInputActions
     [CreateAssetMenu(fileName = "Fire", menuName = "Input/Actions/Fire")]
     public class Fire : GameInputAction
     {
-        public override void OnAction(InputAction.CallbackContext context)
+        protected override void OnAction(InputAction.CallbackContext context)
         {
             switch (context.phase)
             {

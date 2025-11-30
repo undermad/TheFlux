@@ -6,7 +6,7 @@ namespace TheFlux.Core.Scripts.Mvc.InputSystem.InputActions
     [CreateAssetMenu(fileName = "Pointer", menuName = "Input/Actions/Pointer")]
     public class Pointer : GameInputAction
     {
-        public override void OnAction(InputAction.CallbackContext context)
+        protected override void OnAction(InputAction.CallbackContext context)
         {
             if (!context.performed)
             {

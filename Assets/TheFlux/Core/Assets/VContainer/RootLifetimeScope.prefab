@@ -48,10 +48,9 @@ MonoBehaviour:
     TypeName: 
   autoRun: 0
   autoInjectGameObjects: []
-  gameInitiator: {fileID: 0}
+  coreInitiator: {fileID: 0}
   loadingScreen: {fileID: 0}
   uiCamera: {fileID: 0}
   mainCameraView: {fileID: 0}
   loggerConfig: {fileID: 11400000, guid: 20405c813725a444fb37b4288120a398, type: 2}
-  gameInputActionContainer: {fileID: 11400000, guid: 18f598ba073abef489abed808ccf6955, type: 2}
-  inputActionAsset: {fileID: -944628639613478452, guid: 9bac2e7759fbd0c4b9a2d93bf0cb9836, type: 3}
+  actionsView: {fileID: 0}

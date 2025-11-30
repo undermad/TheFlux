@@ -2,32 +2,44 @@
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using MessagePipe;
+using TheFlux.Core.Scripts.Events;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using VContainer;
-using VContainer.Unity;
 using Object = UnityEngine.Object;
 
 namespace TheFlux.Core.Scripts.Mvc.InputSystem
 {
-    public class ActionsController
+    public class InputActionsController
     {
         // TO CHANGE BINDINGS FOR DIFFERENT TYPES ex Vehicles: Use InputActionName
-        
         private readonly ActionsView actionsView;
 
-        private readonly List<GameInputAction> runtimeActions = new();
+        private readonly Dictionary<string, GameInputAction> gameplayRuntimeActions = new();
+        private readonly Dictionary<string, GameInputAction> uiRuntimeActions = new();
+        
         private const string InputActionName = "Player";
+        
+        private readonly IPublisher<IInputKeyPressedEvent> publisher;
 
         [Inject]
-        public ActionsController(ActionsView actionsView)
+        public InputActionsController(ActionsView actionsView, IPublisher<IInputKeyPressedEvent> publisher)
         {
             this.actionsView = actionsView;
+            this.publisher = publisher;
         }
         
         public void Init()
         {
-            var actions = actionsView.gameInputActionContainer.inputActions;
+            var gameplayActions = actionsView.inputActionContainer.inputActions;
+            CreateAssets(gameplayActions, gameplayRuntimeActions);
+            var uiActions = actionsView.uiInputActionContainer.inputActions;
+            CreateAssets(uiActions, uiRuntimeActions);
+        }
+
+        private void CreateAssets(List<GameInputAction> actions, Dictionary<string, GameInputAction> runtimeActions)
+        {
             foreach (var asset in actions)
             {
                 if (asset == null)
@@ -39,25 +51,38 @@ namespace TheFlux.Core.Scripts.Mvc.InputSystem
                 var inputAction = actionsView.inputActionAsset.FindAction(asset.name, throwIfNotFound: true);
                 var runtime = Object.Instantiate(asset);
                 runtime.name = asset.name + " (Runtime)";
-                runtime.Initialize(inputAction);
-                runtimeActions.Add(runtime);
+                runtime.Initialize(inputAction, publisher);
+                runtimeActions.Add(runtime.name, runtime);
             }
         }
+
         
+        // ToDo:
+        // Implement this logic well
+        // Clear logging messages
+        public void SwitchActionsToUI()
+        {
+            actionsView.inputActionAsset.FindActionMap("UI").Enable();
+            foreach (var action in uiRuntimeActions)
+            {
+                action.Value.Enable();
+            }
+        }
+
         public void EnableActions()
         {
             actionsView.inputActionAsset.FindActionMap(InputActionName).Enable();
-            foreach (var action in runtimeActions)
+            foreach (var action in gameplayRuntimeActions)
             {
-                action.Enable();
+                action.Value.Enable();
             }
         }
 
         public void DisableActions()
         {
-            foreach (var action in runtimeActions)
+            foreach (var action in gameplayRuntimeActions)
             {
-                action.Disable();
+                action.Value.Disable();
             }
 
             actionsView.inputActionAsset.FindActionMap(InputActionName).Disable();
@@ -65,7 +90,7 @@ namespace TheFlux.Core.Scripts.Mvc.InputSystem
 
         public async UniTask WaitForAnyKeyPressed(CancellationTokenSource cancellationTokenSource)
         {
-            await UniTask.WaitUntil(IsAnyKeyPressed);
+            await UniTask.WaitUntil(IsAnyKeyPressed, cancellationToken: cancellationTokenSource.Token);
         }
 
         private bool IsAnyKeyPressed()

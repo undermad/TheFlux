@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a71475d750584e878eb1cc8b85ca510e, type: 3}
   m_Name: Move
   m_EditorClassIdentifier: 
+  actionsType: 3

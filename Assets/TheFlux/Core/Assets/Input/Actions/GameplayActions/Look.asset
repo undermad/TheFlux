@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6c2028205764ce694de2249776047dc, type: 3}
   m_Name: Look
   m_EditorClassIdentifier: 
+  actionsType: 1

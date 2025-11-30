@@ -44,5 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dae7d390dfd74699a6d59a3dcebba6dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameInputActionContainer: {fileID: 11400000, guid: 18f598ba073abef489abed808ccf6955, type: 2}
+  inputActionContainer: {fileID: 11400000, guid: 18f598ba073abef489abed808ccf6955, type: 2}
+  uiInputActionContainer: {fileID: 11400000, guid: 629938bbce4cf5e4c83264ee88c750dc, type: 2}
   inputActionAsset: {fileID: -944628639613478452, guid: d1b14ccba71bf014fa2e82fff6cde7af, type: 3}
