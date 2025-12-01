@@ -73,9 +73,6 @@ namespace TheFlux.Core.Scripts.VContainer
             builder.RegisterBuildCallback(container =>
             {
                 _ = container.Resolve<Logger>();
-                var actionsManager = container.Resolve<InputActionsController>();
-                actionsManager.Init();
-                actionsManager.EnableActions();
             });
         }
     }

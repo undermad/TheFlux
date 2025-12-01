@@ -14,7 +14,6 @@ namespace TheFlux.Core.Scripts.Mvc.InputSystem.InputActions.UIInputActions
             switch (context.phase)
             {
                 case InputActionPhase.Started:
-                    LogService.Log("Menu Close", LogLevel.Info, LogCategory.UI);
                     publisher.Publish(new UIInputKeyPressed(ActionsType.UI_MENU_CLOSE));
                     break;
                 case InputActionPhase.Canceled:

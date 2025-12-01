@@ -3,6 +3,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using TheFlux.Core.Scripts.Mvc.Camera.UICamera;
 using TheFlux.Core.Scripts.Mvc.InputSystem;
+using TheFlux.Core.Scripts.Mvc.InputSystem.InputActions;
 using TheFlux.Core.Scripts.Mvc.LoadingScreen;
 using TheFlux.Core.Scripts.Services.LogService;
 using TheFlux.Core.Scripts.Services.SceneService;
@@ -61,6 +62,8 @@ namespace TheFlux.Core.Scripts.CoreInitiator
         private void InitialiseServices()
         {
             _sceneService.SetSceneGroups(coreSceneGroup, sceneGroups);
+            inputActionsController.Init();
+            inputActionsController.SwitchToActionMap(ActionMapType.UI);
         }
 
         private async UniTask LoadSceneGroup(IProgress<float> loadingProgress, CancellationTokenSource cancellationTokenSource)

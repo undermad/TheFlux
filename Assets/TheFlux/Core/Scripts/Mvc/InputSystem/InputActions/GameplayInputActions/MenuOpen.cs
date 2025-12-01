@@ -16,7 +16,6 @@ namespace TheFlux.Core.Scripts.Mvc.InputSystem.InputActions.GameplayInputActions
             switch (context.phase)
             {
                 case InputActionPhase.Started:
-                    LogService.Log("Menu Open!");
                     publisher.Publish(new GameplayInputKeyPressed(ActionsType.GAMEPLAY_MENU_OPEN));
                     break;
                 case InputActionPhase.Canceled:

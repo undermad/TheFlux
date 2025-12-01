@@ -4,6 +4,8 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using MessagePipe;
 using TheFlux.Core.Scripts.Events;
+using TheFlux.Core.Scripts.Mvc.InputSystem.InputActions;
+using TheFlux.Core.Scripts.Mvc.InputSystem.InputActions.GameplayInputActions;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using VContainer;
@@ -18,8 +20,20 @@ namespace TheFlux.Core.Scripts.Mvc.InputSystem
 
         private readonly Dictionary<string, GameInputAction> gameplayRuntimeActions = new();
         private readonly Dictionary<string, GameInputAction> uiRuntimeActions = new();
-        
-        private const string InputActionName = "Player";
+
+        private ActionMapType currentActionMapType = ActionMapType.Player;
+        public const string Player = "Player";
+        public const string UI = "UI";
+
+        private string MapActinMapTypeToString(ActionMapType actionMapType)
+        {
+            return actionMapType switch
+            {
+                ActionMapType.Player => Player,
+                ActionMapType.UI => UI,
+                _ => throw new ArgumentOutOfRangeException(nameof(actionMapType), actionMapType, null)
+            };
+        }
         
         private readonly IPublisher<IInputKeyPressedEvent> publisher;
 
@@ -56,36 +70,42 @@ namespace TheFlux.Core.Scripts.Mvc.InputSystem
             }
         }
 
-        
-        // ToDo:
-        // Implement this logic well
-        // Clear logging messages
-        public void SwitchActionsToUI()
+        public void SwitchToActionMap(ActionMapType actionMapType)
         {
-            actionsView.inputActionAsset.FindActionMap("UI").Enable();
-            foreach (var action in uiRuntimeActions)
+            var currentRuntimeActions = GetGameplayActions(currentActionMapType);
+            var newRuntimeActions = GetGameplayActions(actionMapType);
+            DisableActions(currentActionMapType, currentRuntimeActions);
+            EnableActions(actionMapType, newRuntimeActions);
+            currentActionMapType = actionMapType;
+        }
+
+        private Dictionary<string, GameInputAction> GetGameplayActions(ActionMapType actionMapType)
+        {
+            return actionMapType switch
+            {
+                ActionMapType.Player => gameplayRuntimeActions,
+                ActionMapType.UI => uiRuntimeActions,
+                _ => throw new ArgumentOutOfRangeException(nameof(actionMapType), actionMapType, null)
+            };
+        }
+
+        private void EnableActions(ActionMapType actionMapType, Dictionary<string, GameInputAction> runtimeActions)
+        {
+            actionsView.inputActionAsset.FindActionMap(MapActinMapTypeToString(actionMapType)).Enable();
+            foreach (var action in runtimeActions)
             {
                 action.Value.Enable();
             }
         }
 
-        public void EnableActions()
+        private void DisableActions(ActionMapType actionMapType, Dictionary<string, GameInputAction> runtimeActions)
         {
-            actionsView.inputActionAsset.FindActionMap(InputActionName).Enable();
-            foreach (var action in gameplayRuntimeActions)
-            {
-                action.Value.Enable();
-            }
-        }
-
-        public void DisableActions()
-        {
-            foreach (var action in gameplayRuntimeActions)
+            foreach (var action in runtimeActions)
             {
                 action.Value.Disable();
             }
 
-            actionsView.inputActionAsset.FindActionMap(InputActionName).Disable();
+            actionsView.inputActionAsset.FindActionMap(MapActinMapTypeToString(actionMapType)).Disable();
         }
 
         public async UniTask WaitForAnyKeyPressed(CancellationTokenSource cancellationTokenSource)

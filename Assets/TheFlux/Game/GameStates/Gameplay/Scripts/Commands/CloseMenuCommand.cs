@@ -1,4 +1,5 @@
 ﻿using TheFlux.Core.Scripts.Mvc.InputSystem;
+using TheFlux.Core.Scripts.Mvc.InputSystem.InputActions;
 using TheFlux.Core.Scripts.Services.CommandFactory;
 using TheFlux.Core.Scripts.Services.LogService;
 using TheFlux.Game.GameStates.Gameplay.Scripts.Services;
@@ -24,10 +25,9 @@ namespace TheFlux.Game.GameStates.Gameplay.Scripts.Commands
 
         public void Execute()
         {
-            LogService.Log("Closing Menu", LogLevel.Info, LogCategory.UI);
             pauseService.ResumeGame();
             pauseCanvasController.Hide();
-            inputActionsController.EnableActions();
+            inputActionsController.SwitchToActionMap(ActionMapType.Player);
         }
     }
 }
