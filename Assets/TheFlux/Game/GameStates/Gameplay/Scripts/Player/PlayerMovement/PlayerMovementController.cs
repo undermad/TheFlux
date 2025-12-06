@@ -19,8 +19,6 @@ namespace TheFlux.Game.GameStates.Gameplay.Scripts.Player.PlayerMovement
 
         public void Tick()
         {
-            var isNull = playerView == null ? "IsNull" : "Is not null";
-            LogService.Log($"Ticking player view: {isNull}");
             if (playerView == null) return;
 
             var currentVelocity = InputData.Direction * playerMovementData.baseSpeed;
