@@ -1,6 +1,8 @@
 ﻿using TheFlux.Core.Scripts.Mvc.Camera.MainCamera;
 using TheFlux.Core.Scripts.Services.LogService;
-using TheFlux.Game.Game.Gameplay.Scripts.Player;
+using TheFlux.Game.GameStates.Gameplay.Scripts.Player.PlayerMovement;
+using TheFlux.Game.GameStates.Gameplay.Scripts.Player.PlayerMovement.Data;
+using UnityEngine;
 using VContainer;
 
 namespace TheFlux.Game.GameStates.Gameplay.Scripts.Player
@@ -9,23 +11,31 @@ namespace TheFlux.Game.GameStates.Gameplay.Scripts.Player
     {
         // Change this to be not dependent on camera
         private MainCameraController mainCameraController;
+        private PlayerMovementController playerMovementController;
+        private PlayerMovementData playerMovementData;
         
         private PlayerView playerView;
         
         [Inject]
-        public PlayerController(MainCameraController mainCameraController, PlayerView playerView)
+        public PlayerController(MainCameraController mainCameraController,
+            PlayerMovementController playerMovementController)
         {
             this.mainCameraController = mainCameraController;
-            this.playerView = playerView;
+            this.playerMovementController = playerMovementController;
         }
 
-        public void Setup()
+        public void InitEntryPoint(PlayerView playerView, PlayerMovementData playerMovementData)
         {
-            LogService.Log("Running PlayerController setup", LogLevel.Debug, LogCategory.Manager);
             mainCameraController.SetFollowTarget(playerView.transform);
+            playerMovementController.InitEntryPoint(playerMovementData, playerView);
         }
-        
-        
-        
+
+
+        public Transform GetTransform()
+        {
+            return playerView.transform;
+        }
+
+
     }
 }

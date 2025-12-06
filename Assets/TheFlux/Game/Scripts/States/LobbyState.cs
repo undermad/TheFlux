@@ -24,7 +24,6 @@ namespace TheFlux.Game.Scripts.States
         {
             await base.LoadAsFirstGameState(cancellationTokenSource);
             await sceneService.LoadScenes(SceneGroupsName.Lobby, cancellationTokenSource);
-
         }
         
         public override async UniTask LoadState(CancellationTokenSource cancellationTokenSource)

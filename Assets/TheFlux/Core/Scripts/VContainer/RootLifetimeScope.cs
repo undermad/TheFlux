@@ -4,6 +4,7 @@ using TheFlux.Core.Scripts.Mvc.Camera.MainCamera;
 using TheFlux.Core.Scripts.Mvc.Camera.UICamera;
 using TheFlux.Core.Scripts.Mvc.InputSystem;
 using TheFlux.Core.Scripts.Mvc.LoadingScreen;
+using TheFlux.Core.Scripts.Services.Addressables;
 using TheFlux.Core.Scripts.Services.CommandFactory;
 using TheFlux.Core.Scripts.Services.LogService;
 using TheFlux.Core.Scripts.Services.SceneInitiatorService;
@@ -65,6 +66,7 @@ namespace TheFlux.Core.Scripts.VContainer
             
             // SERVICES
             builder.Register<CommandFactory>(Lifetime.Singleton);
+            builder.Register<AddressablesLoaderService>(Lifetime.Singleton);
             
             // MESSAGE PIPE
             builder.RegisterMessagePipe();

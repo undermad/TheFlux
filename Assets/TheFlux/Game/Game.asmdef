@@ -4,7 +4,9 @@
     "references": [
         "Core",
         "VContainer",
-        "UniTask"
+        "UniTask",
+        "KBCore.Refs",
+        "Unity.TextMeshPro"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

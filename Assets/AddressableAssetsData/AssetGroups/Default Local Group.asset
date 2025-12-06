@@ -15,8 +15,18 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: ad07a4fab5e554a459e4ffcc53f8cd6b
   m_SerializeEntries:
+  - m_GUID: 01e5c9d8f40509249b89d796a337f523
+    m_Address: Player/PlayerMovementData
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 371948a5f1b5ab5429275daa8759dbfa
     m_Address: Assets/TheFlux/Game/GameStates/Lobby/Assets/LobbyCanvas/Canvas.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 712653e8e6cc40b4e9f2573474b2d413
+    m_Address: Player/PlayerView
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
