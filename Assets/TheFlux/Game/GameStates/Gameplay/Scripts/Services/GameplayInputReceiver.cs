@@ -9,7 +9,7 @@ using TheFlux.Game.Scripts.Input;
 using VContainer;
 using VContainer.Unity;
 
-namespace TheFlux.Game.GameStates.Gameplay.Scripts.Input
+namespace TheFlux.Game.GameStates.Gameplay.Scripts.Services
 {
     public class GameplayInputReceiver : IInputReceiver, IStartable, IDisposable
     {

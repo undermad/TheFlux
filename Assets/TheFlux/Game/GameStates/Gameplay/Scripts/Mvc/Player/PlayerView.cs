@@ -2,7 +2,7 @@
 using TheFlux.Core.Scripts.Mvc.InputSystem;
 using UnityEngine;
 
-namespace TheFlux.Game.GameStates.Gameplay.Scripts.Player
+namespace TheFlux.Game.GameStates.Gameplay.Scripts.Mvc.Player
 {
     public class PlayerView : ValidatedMonoBehaviour
     {

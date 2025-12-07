@@ -25,6 +25,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5a02c8f046ed3fb40bf15e8b7a6f4e8e
+    m_Address: Player/HandData
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 60b9c4124b06cb042a38a776684f7d44
+    m_Address: Player/HandView
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 712653e8e6cc40b4e9f2573474b2d413
     m_Address: Player/PlayerView
     m_ReadOnly: 0

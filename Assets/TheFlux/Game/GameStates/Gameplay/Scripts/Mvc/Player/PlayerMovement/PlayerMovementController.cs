@@ -1,10 +1,9 @@
 ﻿using TheFlux.Core.Scripts.Mvc.InputSystem;
-using TheFlux.Core.Scripts.Services.LogService;
-using TheFlux.Game.GameStates.Gameplay.Scripts.Player.PlayerMovement.Data;
+using TheFlux.Game.GameStates.Gameplay.Scripts.Mvc.Player.PlayerMovement.Data;
 using UnityEngine;
 using VContainer.Unity;
 
-namespace TheFlux.Game.GameStates.Gameplay.Scripts.Player.PlayerMovement
+namespace TheFlux.Game.GameStates.Gameplay.Scripts.Mvc.Player.PlayerMovement
 {
     public class PlayerMovementController : ITickable
     {

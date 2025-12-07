@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 using TheFlux.Core.Scripts.Mvc.Camera.MainCamera;
 using TheFlux.Core.Scripts.Services.CommandFactory;
 using TheFlux.Game.Game.Gameplay.Scripts.SceneInitiator;
-using TheFlux.Game.GameStates.Gameplay.Scripts.Player;
+using TheFlux.Game.GameStates.Gameplay.Scripts.Mvc.Player;
 using VContainer;
 
 namespace TheFlux.Game.GameStates.Gameplay.Scripts.Commands

@@ -2,10 +2,9 @@
 using TheFlux.Core.Scripts.Services.CommandFactory;
 using TheFlux.Core.Scripts.Services.SceneInitiatorService;
 using TheFlux.Game.Game.Gameplay.Scripts.SceneInitiator;
-using TheFlux.Game.GameStates.Gameplay.Scripts.Input;
-using TheFlux.Game.GameStates.Gameplay.Scripts.Player;
-using TheFlux.Game.GameStates.Gameplay.Scripts.Player.PlayerMovement;
-using TheFlux.Game.GameStates.Gameplay.Scripts.Player.PlayerMovement.Data;
+using TheFlux.Game.GameStates.Gameplay.Scripts.Mvc.Player;
+using TheFlux.Game.GameStates.Gameplay.Scripts.Mvc.Player.Hand;
+using TheFlux.Game.GameStates.Gameplay.Scripts.Mvc.Player.PlayerMovement;
 using TheFlux.Game.GameStates.Gameplay.Scripts.SceneInitiator;
 using TheFlux.Game.GameStates.Gameplay.Scripts.Services;
 using TheFlux.Game.GameStates.Gameplay.Scripts.UI.MVC;
@@ -29,6 +28,10 @@ namespace TheFlux.Game.GameStates.Gameplay.Scripts.VContainer
             builder.Register<IInitiatorEntryData, GameplayEntryData>(Lifetime.Scoped);
             
             // PLAYER
+            builder.Register<HandController>(Lifetime.Scoped)
+                .As<HandController>()
+                .As<IFixedTickable>();
+            
             builder.Register<PlayerFactory>(Lifetime.Scoped);
             builder.Register<PlayerMovementController>(Lifetime.Scoped)
                 .As<PlayerMovementController>()
