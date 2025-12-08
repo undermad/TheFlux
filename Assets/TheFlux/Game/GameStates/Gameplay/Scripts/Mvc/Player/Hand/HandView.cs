@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TheFlux.Game.GameStates.Gameplay.Scripts.Mvc.Player.Hand
 {
-    public class HandView : ValidatedMonoBehaviour
+    public class HandView : MonoBehaviour
     {
         public void SetPosition(Vector2 position)
         {
