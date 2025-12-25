@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace TheFlux.Game.Scripts.CombatSystem
+namespace TheFlux.Game.GameStates.Gameplay.Scripts.CombatSystem
 {
     [CreateAssetMenu(menuName = "GAS/GameplayTag", fileName = "GT_")]
     public class GameplayTag : ScriptableObject, IEquatable<GameplayTag>

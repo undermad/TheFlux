@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace TheFlux.Game.Scripts.CombatSystem
+namespace TheFlux.Game.GameStates.Gameplay.Scripts.CombatSystem
 {
     [CreateAssetMenu(menuName = "GAS/GameplayEffectDef", fileName = "GameplayEffectDef")]
     public class GameplayEffectDef : ScriptableObject

@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace TheFlux.Game.Scripts.CombatSystem
+namespace TheFlux.Game.GameStates.Gameplay.Scripts.CombatSystem
 {
-    public class ApplyDurationEffectSpec : IApplyEffectSpec
+    public class ApplyInstantEffectSpec : IApplyEffectSpec
     {
         public void ApplyEffectSpec(GameplayEffectSpec specification, AbilitySystemComponent asc)
         {
@@ -22,7 +22,7 @@ namespace TheFlux.Game.Scripts.CombatSystem
                 }
             }
 
-
+            asc.ApplyModifiers(asc, specification);
         }
     }
 }

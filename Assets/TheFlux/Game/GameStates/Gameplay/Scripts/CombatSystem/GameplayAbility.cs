@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace TheFlux.Game.Scripts.CombatSystem
+namespace TheFlux.Game.GameStates.Gameplay.Scripts.CombatSystem
 {
     [CreateAssetMenu(menuName = "GAS/Ability", fileName = "GA_")]
     public class GameplayAbility : ScriptableObject

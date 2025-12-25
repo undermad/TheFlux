@@ -1,4 +1,5 @@
 ﻿using System;
+using TheFlux.Core.Scripts.Services.LogService;
 
 namespace TheFlux.Game.Scripts.Entities
 {
@@ -9,6 +10,7 @@ namespace TheFlux.Game.Scripts.Entities
         protected Entity()
         {
             Id = Guid.NewGuid();
+            LogService.Log($"Called entity constructor: {Id}");
         }
     }
 }

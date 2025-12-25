@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TheFlux.Game.Scripts.CombatSystem
+namespace TheFlux.Game.GameStates.Gameplay.Scripts.CombatSystem
 {
     [Serializable]
     public class ActiveEffect

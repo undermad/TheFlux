@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace TheFlux.Game.Scripts.CombatSystem
+namespace TheFlux.Game.GameStates.Gameplay.Scripts.CombatSystem
 {
     [CreateAssetMenu(menuName = "GAS/AttributeSetData", fileName = "AttributeSetData")]
     public class AttributeSetData : ScriptableObject

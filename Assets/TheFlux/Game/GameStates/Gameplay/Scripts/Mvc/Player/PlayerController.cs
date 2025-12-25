@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+using TheFlux.Core.Scripts.Services.LogService;
+using TheFlux.Game.GameStates.Gameplay.Scripts.CombatSystem;
 using TheFlux.Game.GameStates.Gameplay.Scripts.Mvc.Player.PlayerMovement;
 using TheFlux.Game.GameStates.Gameplay.Scripts.Mvc.Player.PlayerMovement.Data;
-using TheFlux.Game.Scripts.CombatSystem;
 using TheFlux.Game.Scripts.Entities;
 using UnityEngine;
 using VContainer;
@@ -11,7 +12,7 @@ namespace TheFlux.Game.GameStates.Gameplay.Scripts.Mvc.Player
     public class PlayerController : Entity
     {
         private readonly PlayerMovementController playerMovementController;
-        private readonly AbilitySystemComponent abilitySystemComponent;
+        private AbilitySystemComponent abilitySystemComponent { get; }
         private PlayerMovementData playerMovementData;
         
         private PlayerView playerView;
@@ -27,7 +28,18 @@ namespace TheFlux.Game.GameStates.Gameplay.Scripts.Mvc.Player
         {
             this.playerView = playerView;
             playerMovementController.InitEntryPoint(playerMovementData, playerView);
+            LogService.Log($"Called Player Controller Init - Id: {Id}");
             abilitySystemComponent.InitEntryPoint(Id, attributeSets);
+        }
+        
+        public void Resume()
+        {
+            abilitySystemComponent.Resume();
+        }
+
+        public void Pause()
+        {
+            abilitySystemComponent.Pause();
         }
 
         public Transform GetTransform()

@@ -5,11 +5,13 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using NUnit.Framework;
 using TheFlux.Core.Scripts.Services.Addressables;
+using TheFlux.Core.Scripts.Services.LogService;
+using TheFlux.Game.GameStates.Gameplay.Scripts.CombatSystem;
 using TheFlux.Game.GameStates.Gameplay.Scripts.Mvc.Player.Hand;
 using TheFlux.Game.GameStates.Gameplay.Scripts.Mvc.Player.PlayerMovement.Data;
-using TheFlux.Game.Scripts.CombatSystem;
 using UnityEngine;
 using VContainer;
+using VContainer.Unity;
 using Object = UnityEngine.Object;
 
 namespace TheFlux.Game.GameStates.Gameplay.Scripts.Mvc.Player
@@ -38,21 +40,25 @@ namespace TheFlux.Game.GameStates.Gameplay.Scripts.Mvc.Player
 
         public async UniTask<PlayerController> Create(CancellationTokenSource cancellationTokenSource)
         {
-            var playerController = await CreatePlayerController(cancellationTokenSource);
+            var go = new GameObject("PlayerRoot");
+            go.SetActive(false);
+            var playerController = await CreatePlayerController(go, cancellationTokenSource);
             
-            var handController = await CreatePlayerHandController(cancellationTokenSource);
+            
+            var handController = await CreatePlayerHandController(go, cancellationTokenSource);
             handController.AttachTo(playerController.GetTransform());
 
             
             cancellationTokenSource.Token.ThrowIfCancellationRequested();
+            go.SetActive(true);
             return playerController;
         }
 
-        private async UniTask<PlayerController> CreatePlayerController(CancellationTokenSource cancellationTokenSource)
+        private async UniTask<PlayerController> CreatePlayerController(GameObject parent, CancellationTokenSource cancellationTokenSource)
         {
             var playerViewPrefab = await addressablesLoaderService
                 .LoadAsync<PlayerView>(PLAYER_VIEW_PREFAB_ADDRESS, cancellationTokenSource);
-            var playerView = Object.Instantiate(playerViewPrefab, Vector3.zero, Quaternion.identity);
+            var playerView = Object.Instantiate(playerViewPrefab, Vector3.zero, Quaternion.identity, parent.transform);
             
             var playerMovementData = await addressablesLoaderService
                 .LoadAsync<PlayerMovementData>(PLAYER_MOVEMENT_DATA_ADDRESS, cancellationTokenSource);
@@ -60,16 +66,18 @@ namespace TheFlux.Game.GameStates.Gameplay.Scripts.Mvc.Player
             var attributeSetData = await addressablesLoaderService.LoadAsync<AttributeSetData>(PLAYER_ASC_ATTRIBUTE_SET_DATA_ADDRESS, cancellationTokenSource);
             var attributeSetList = new List<AttributeSetData> { attributeSetData };
             
+
             var playerController = objectResolver.Resolve<PlayerController>();
+
             playerController.InitEntryPoint(playerView, playerMovementData, attributeSetList);
-            
+
             return playerController;
         }
 
-        private async UniTask<HandController> CreatePlayerHandController(CancellationTokenSource cancellationTokenSource)
+        private async UniTask<HandController> CreatePlayerHandController(GameObject parent, CancellationTokenSource cancellationTokenSource)
         {
             var handViewPrefab = await addressablesLoaderService.LoadAsync<HandView>(PLAYER_HAND_PREFAB_ADDRESS, cancellationTokenSource);
-            var handViw = Object.Instantiate(handViewPrefab, Vector3.zero, Quaternion.identity);
+            var handViw = Object.Instantiate(handViewPrefab, Vector3.zero, Quaternion.identity, parent.transform);
             
             var handData = await addressablesLoaderService.LoadAsync<HandData>(PLAYER_HAND_DATA_ADDRESS, cancellationTokenSource);
             

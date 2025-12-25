@@ -1,23 +1,67 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using TheFlux.Core.Scripts.Services.LogService;
+using TheFlux.Game.GameStates.Gameplay.Scripts.Services;
 using UnityEngine;
+using VContainer;
 using VContainer.Unity;
+using Attribute = TheFlux.Game.GameStates.Gameplay.Scripts.CombatSystem.Attribute;
 
-namespace TheFlux.Game.Scripts.CombatSystem
+namespace TheFlux.Game.GameStates.Gameplay.Scripts.CombatSystem
 {
     public class AbilitySystemComponent : ITickable
     {
         private List<GameplayAbility> GrantedAbilities = new();
         public Guid OwnerId { get; private set; }
-        public GameplayTagContainer Tags = new();
-        public GameplayTagContainer GetGameplayTags() => Tags;
+        public GameplayTagContainer Tags { get; } = new();
 
         // Runtime state
         private readonly Dictionary<string, Attribute> attributes = new(StringComparer.OrdinalIgnoreCase);
         private readonly List<ActiveEffect> activeEffects = new();
 
+        private readonly AbilitySystemRegistry abilitySystemRegistry;
 
-        public bool IsEqual(AbilitySystemComponent other) => other.OwnerId.Equals(OwnerId);
+        [Inject]
+        public AbilitySystemComponent(AbilitySystemRegistry abilitySystemRegistry)
+        {
+            this.abilitySystemRegistry = abilitySystemRegistry;
+        }
+
+
+        public void InitEntryPoint(Guid ownerId, List<AttributeSetData> attributeSets)
+        {
+            OwnerId = ownerId;
+            LogService.Log($"passed ownerId: {ownerId}");
+            LogService.Log($"Field OwnerId: {OwnerId}");
+            LogService.Log($"HashCode during init: {GetHashCode()}");
+
+            // Set runtime attributes from scriptable object
+            foreach (var pair in attributeSets
+                         .Select(set => set.InstantiateDict())
+                         .SelectMany(dictionary => dictionary))
+            {
+                attributes[pair.Key] = pair.Value;
+            }
+            // Initialise Current Values
+            // private void Start()
+            // {
+            //     foreach (var attribute in attributes.Values)
+            //     {
+            //         attribute.SetCurrentValue(attribute.CurrentValue, ownerId);
+            //     }
+            // }
+        }
+
+        public void Resume()
+        {
+            abilitySystemRegistry.RegisterInstance(this);
+        }
+
+        public void Pause()
+        {
+            abilitySystemRegistry.UnregisterInstance(this);
+        }
         
         public Attribute GetAttribute(string attributeName) => attributes.GetValueOrDefault(attributeName);
         public float GetAttributeValue(string attributeName) => GetAttribute(attributeName)?.CurrentValue ?? 0f;
@@ -30,38 +74,13 @@ namespace TheFlux.Game.Scripts.CombatSystem
 
         public void AddActiveEffect(ActiveEffect activeEffect) => activeEffects.Add(activeEffect);
 
-
-        public void InitEntryPoint(Guid ownerId, List<AttributeSetData> attributeSets)
-        {
-            OwnerId = ownerId;
-            
-            // Set runtime attributes from scriptable object
-            foreach (var set in attributeSets)
-            {
-                var dictionary = set.InstantiateDict();
-                foreach (var pair in dictionary)
-                {
-                    attributes[pair.Key] = pair.Value;
-                }
-            }
-        }
-
-
-        // Initialise Current Values
-        // private void Start()
-        // {
-        //     foreach (var attribute in attributes.Values)
-        //     {
-        //         attribute.SetCurrentValue(attribute.CurrentValue, ownerId);
-        //     }
-        // }
-        
-        
         public void Tick()
         {
+            LogService.Log($"OwnerId: {OwnerId}");
+            LogService.Log($"HashCode during tick: {GetHashCode()}");
+
             TickEffects(Time.deltaTime);
         }
-
 
 
         public GameplayEffectSpec MakeSpec(GameplayEffectDef definition, int level, GameObject instigator)
@@ -92,8 +111,8 @@ namespace TheFlux.Game.Scripts.CombatSystem
                     Tags.RemoveTag(grantedTag, OwnerId);
                 }
             }
-            
-            
+
+
             List<ActiveEffect> effectToRemove = new();
             foreach (var activeEffect in activeEffects)
             {
@@ -300,6 +319,5 @@ namespace TheFlux.Game.Scripts.CombatSystem
         //     ability.Activate(this, gameObject);
         //     return true;
         // }
-
     }
 }

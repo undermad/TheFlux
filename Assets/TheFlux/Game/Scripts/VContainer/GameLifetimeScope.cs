@@ -1,6 +1,5 @@
 using TheFlux.Core.Scripts.CoreInitiator;
 using TheFlux.Core.Scripts.Services.SceneInitiatorService;
-using TheFlux.Game.Scripts.CombatSystem;
 using TheFlux.Game.Scripts.Initiator;
 using TheFlux.Game.Scripts.States;
 using VContainer;
@@ -19,11 +18,6 @@ namespace TheFlux.Game.Scripts.VContainer
             // STATE MACHINE
             builder.Register<LobbyState>(Lifetime.Scoped);
             builder.Register<GameplayState>(Lifetime.Scoped);
-            
-            // ASC
-            builder.Register<AbilitySystemComponent>(Lifetime.Transient)
-                .As<AbilitySystemComponent>()
-                .As<ITickable>();
             
             
             // CALLBACK

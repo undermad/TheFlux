@@ -1,6 +1,6 @@
 ﻿using UnityEditor;
 
-namespace TheFlux.Game.Scripts.CombatSystem.Editor
+namespace TheFlux.Game.GameStates.Gameplay.Scripts.CombatSystem.Editor
 {
 
     [CustomEditor(typeof(GameplayEffectDef))]

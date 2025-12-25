@@ -1,4 +1,4 @@
-﻿namespace TheFlux.Game.Scripts.CombatSystem
+﻿namespace TheFlux.Game.GameStates.Gameplay.Scripts.CombatSystem
 {
     public enum DurationPolicy
     {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace TheFlux.Game.Scripts.CombatSystem
+namespace TheFlux.Game.GameStates.Gameplay.Scripts.CombatSystem
 {
     [CreateAssetMenu(menuName = "GAS/AttributeNameData", fileName = "AttributeNameData")]
     public class AttributeNameData : ScriptableObject
